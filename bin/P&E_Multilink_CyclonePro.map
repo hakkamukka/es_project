@@ -36,8 +36,8 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x1100     658
-  _Copy    *toCopyDownBeg 0xE0B9
+  _Range   pZeroOut       0x1100     668
+  _Copy    *toCopyDownBeg 0xE035
 } _startupData;
 
 *********************************************************************************************
@@ -47,9 +47,9 @@ Section Name                    Size  Type     From       To       Segment
 .init                             49     R     0xC000     0xC030   ROM_C000
 .startData                        10     R     0xC031     0xC03A   ROM_C000
 .rodata                            2     R     0xC03B     0xC03C   ROM_C000
-.rodata1                        1752     R     0xC03D     0xC714   ROM_C000
-.text                           6183     R     0xC715     0xDF3B   ROM_C000
-.copy                              2     R     0xE0B9     0xE0BA   ROM_C000
+.rodata1                        1469     R     0xC03D     0xC5F9   ROM_C000
+.text                           6334     R     0xC5FA     0xDEB7   ROM_C000
+.copy                              2     R     0xE035     0xE036   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -279,14 +279,14 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_ffd6                  2     R     0xFFD6     0xFFD7   .absSeg225
 .abs_section_ffe0                  2     R     0xFFE0     0xFFE1   .absSeg226
 .abs_section_ffe4                  2     R     0xFFE4     0xFFE5   .absSeg227
-.bss                             562   R/W     0x1100     0x1331   RAM
-.common                           96   R/W     0x1332     0x1391   RAM
-RUNTIME                          381     R     0xDF3C     0xE0B8   ROM_C000
+.bss                             564   R/W     0x1100     0x1333   RAM
+.common                          104   R/W     0x1334     0x139B   RAM
+RUNTIME                          381     R     0xDEB8     0xE034   ROM_C000
 .vectSeg228_vect                   2     R     0xFFFE     0xFFFF   .vectSeg228
 
 Summary of section sizes per section type:
-READ_ONLY (R):        20C7 (dec:     8391)
-READ_WRITE (R/W):      392 (dec:      914)
+READ_ONLY (R):        2043 (dec:     8259)
+READ_WRITE (R/W):      39C (dec:      924)
 NO_INIT (N/I):         116 (dec:      278)
 
 *********************************************************************************************
@@ -527,29 +527,33 @@ MODULE:                 -- mc9s12a256.c.o --
      _ATD1DR7                                   13E       2       2       0   .abs_section_13e
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C715      DD     221       1   .text       
-     HandlePacket                              C7F2      82     130       1   .text       
-     MCCNT_ISR                                 C874      43      67       1   .text       
-     HandleStartupPacket                       C8B7      44      68       2   .text       
-     HandleSpecialPacket                       C8FB      24      36       2   .text       
-     HandleNumberPacket                        C91F      2A      42       2   .text       
-     HandleModePacket                          C949      15      21       2   .text       
-     HandleEEPROMProgramPacket                 C95E      25      37       1   .text       
-     HandleEEPROMGetPacket                     C983      2A      42       1   .text       
-     HandleTimePacket                          C9AD      12      18       2   .text       
-     HandlePacketModePacket                    C9BF      28      40       1   .text       
-     HandleAnalogValPacket                     C9E7      1F      31       3   .text       
+     main                                      C5FA      E0     224       1   .text       
+     HandlePacket                              C6DA      82     130       1   .text       
+     MCCNT_ISR                                 C75C      43      67       1   .text       
+     HandleStartupPacket                       C79F      44      68       2   .text       
+     HandleSpecialPacket                       C7E3      24      36       2   .text       
+     HandleNumberPacket                        C807      2A      42       2   .text       
+     HandleModePacket                          C831      15      21       2   .text       
+     HandleEEPROMProgramPacket                 C846      25      37       1   .text       
+     HandleEEPROMGetPacket                     C86B      2A      42       1   .text       
+     HandleTimePacket                          C895      12      18       2   .text       
+     HandlePacketModePacket                    C8A7      28      40       1   .text       
+     HandleAnalogValPacket                     C8CF      1F      31       3   .text       
 - VARIABLES:
      Timer_Ch7_Delay                           C03B       2       2       1   .rodata     
      _Vector_26                                FFCA       2       2       0   .abs_section_ffca
-     Packet                                    1332       4       4      28   .common     
-     Packet_CommandOK                          1336       2       2       2   .common     
-     Analog_Input                              1338      50      80      17   .common     
-     NbAnalogInputs                            1388       2       2       1   .common     
-     NbAnalogOutputs                           138A       2       2       1   .common     
-     Clock_Seconds                             138C       1       1       6   .common     
-     Clock_Minutes                             138D       1       1       3   .common     
-     Clock_MicroSeconds                        138E       4       4       9   .common     
+     Packet                                    1334       4       4      28   .common     
+     Packet_CommandOK                          1338       2       2       2   .common     
+     Analog_Input                              133A      50      80      17   .common     
+     NbAnalogInputs                            138A       2       2       1   .common     
+     NbAnalogOutputs                           138C       2       2       1   .common     
+     Clock_Seconds                             138E       1       1       6   .common     
+     Clock_Minutes                             138F       1       1       3   .common     
+     Clock_MicroSeconds                        1390       4       4      11   .common     
+     System_Seconds                            1394       2       2       5   .common     
+     System_Minutes                            1396       2       2       6   .common     
+     System_Hours                              1398       2       2       6   .common     
+     System_Days                               139A       2       2       3   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
@@ -560,68 +564,68 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansisi.lib) --
 - PROCEDURES:
-     _BDIVMODU                                 DF3C       A      10       2   RUNTIME     
-     _LSHRU                                    DF46      11      17       1   RUNTIME     
-     _LCMP                                     DF57      19      25       1   RUNTIME     
-     _lDivMod                                  DF70      BE     190       3   RUNTIME     
-     _LDIVU                                    E02E       E      14       4   RUNTIME     
-     _NEG_P                                    E03C       F      15       4   RUNTIME     
-     _LDIVS                                    E04B      35      53       1   RUNTIME     
-     _CASE_CHECKED                             E080       B      11       2   RUNTIME     
-     _CASE_CHECKED_BYTE                        E08B      14      20      22   RUNTIME     
-     _CASE_SEARCH_8_BYTE                       E09F      1A      26       3   RUNTIME     
+     _BDIVMODU                                 DEB8       A      10       2   RUNTIME     
+     _LSHRU                                    DEC2      11      17       1   RUNTIME     
+     _LCMP                                     DED3      19      25       1   RUNTIME     
+     _lDivMod                                  DEEC      BE     190       3   RUNTIME     
+     _LDIVU                                    DFAA       E      14       4   RUNTIME     
+     _NEG_P                                    DFB8       F      15       4   RUNTIME     
+     _LDIVS                                    DFC7      35      53       1   RUNTIME     
+     _CASE_CHECKED                             DFFC       B      11       3   RUNTIME     
+     _CASE_CHECKED_BYTE                        E007      14      20      21   RUNTIME     
+     _CASE_SEARCH_8_BYTE                       E01B      1A      26       3   RUNTIME     
 - VARIABLES:
 MODULE:                 -- analog.c.o --
 - PROCEDURES:
-     Analog_Setup                              CA06      3E      62       1   .text       
-     Analog_Get                                CA44      C6     198       2   .text       
+     Analog_Setup                              C8EE      3E      62       1   .text       
+     Analog_Get                                C92C      C6     198       2   .text       
 - VARIABLES:
 MODULE:                 -- clock.c.o --
 - PROCEDURES:
-     Clock_Setup                               CB0A      11      17       1   .text       
-     Clock_Update                              CB1B      7E     126       1   .text       
+     Clock_Setup                               C9F2      25      37       1   .text       
+     Clock_Update                              CA17      C1     193       1   .text       
 - VARIABLES:
 MODULE:                 -- CRG.c.o --
 - PROCEDURES:
-     CRG_SetupPLL                              CB99      51      81       1   .text       
-     CRG_SetupCOP                              CBEA      21      33       1   .text       
-     CRG_SetupRTI                              CC0B       E      14       1   .text       
-     CRG_RTI_ISR                               CC19      24      36       1   .text       
+     CRG_SetupPLL                              CAD8      51      81       1   .text       
+     CRG_SetupCOP                              CB29      21      33       1   .text       
+     CRG_SetupRTI                              CB4A       E      14       1   .text       
+     CRG_RTI_ISR                               CB58      24      36       1   .text       
 - VARIABLES:
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 MODULE:                 -- EEPROM.c.o --
 - PROCEDURES:
-     EEPROM_Setup                              CC3D      C5     197       2   .text       
-     EEPROM_Write32                            CD02      50      80       1   .text       
-     EEPROM_Write16                            CD52      43      67      13   .text       
-     EEPROM_Write8                             CD95      2C      44       1   .text       
-     EEPROM_Erase                              CDC1      36      54       1   .text       
-     Write                                     CDF7      37      55       5   .text       
+     EEPROM_Setup                              CB7C      C5     197       2   .text       
+     EEPROM_Write32                            CC41      50      80       1   .text       
+     EEPROM_Write16                            CC91      43      67      13   .text       
+     EEPROM_Write8                             CCD4      2C      44       1   .text       
+     EEPROM_Erase                              CD00      36      54       1   .text       
+     Write                                     CD36      37      55       5   .text       
 - VARIABLES:
 MODULE:                 -- FIFO.c.o --
 - PROCEDURES:
-     FIFO_Init                                 CE2E       F      15       2   .text       
-     FIFO_Put                                  CE3D      3F      63       2   .text       
-     FIFO_Get                                  CE7C      3D      61       2   .text       
+     FIFO_Init                                 CD6D       F      15       2   .text       
+     FIFO_Put                                  CD7C      3F      63       2   .text       
+     FIFO_Get                                  CDBB      3D      61       2   .text       
 - VARIABLES:
 MODULE:                 -- packet.c.o --
 - PROCEDURES:
-     Packet_Setup                              CEB9      1B      27       1   .text       
-     Packet_Put                                CED4      4B      75      10   .text       
-     Packet_Get                                CF1F      6A     106       1   .text       
-     shuffleFSM                                CF89      27      39       1   .text       
+     Packet_Setup                              CDF8      1B      27       1   .text       
+     Packet_Put                                CE13      4B      75      10   .text       
+     Packet_Get                                CE5E      6A     106       1   .text       
+     shuffleFSM                                CEC8      27      39       1   .text       
 - VARIABLES:
      FSM                                       1100       F      15      12   .bss        
      StateIndex                                110F       1       1       5   .bss        
      bSwapFlag                                 1110       2       2       3   .bss        
 MODULE:                 -- SCI.c.o --
 - PROCEDURES:
-     SCI_Setup                                 CFB0      5E      94       1   .text       
-     SCI_InChar                                D00E       E      14       1   .text       
-     SCI_OutChar                               D01C      15      21       5   .text       
-     SendData                                  D031      30      48       2   .text       
-     SCI0_ISR                                  D061      10      16       1   .text       
-     TIE7_ISR                                  D071      13      19       1   .text       
+     SCI_Setup                                 CEEF      5E      94       1   .text       
+     SCI_InChar                                CF4D       E      14       1   .text       
+     SCI_OutChar                               CF5B      15      21       5   .text       
+     SendData                                  CF70      30      48       2   .text       
+     SCI0_ISR                                  CFA0      10      16       1   .text       
+     TIE7_ISR                                  CFB0      13      19       1   .text       
 - VARIABLES:
      RxFIFO                                    1112     106     262       3   .bss        
      TxFIFO                                    1218     106     262       3   .bss        
@@ -629,148 +633,135 @@ MODULE:                 -- SCI.c.o --
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
 MODULE:                 -- SPI.c.o --
 - PROCEDURES:
-     SPI_Setup                                 D084      67     103       1   .text       
-     SPI_ExchangeChar                          D0EB      15      21       3   .text       
+     SPI_Setup                                 CFC3      67     103       1   .text       
+     SPI_ExchangeChar                          D02A      15      21       3   .text       
 - VARIABLES:
 MODULE:                 -- timer.c.o --
 - PROCEDURES:
-     Timer_SetupPeriodicTimer                  D100      2E      46       1   .text       
-     Timer_PeriodicTimerEnable                 D12E      1B      27       1   .text       
-     Timer_Setup                               D149      22      34       1   .text       
-     Timer_Init                                D16B     3A7     935      19   .text       
-     Timer_Enable                              D512      80     128       3   .text       
-     Timer_Enabled                             D592      62      98       1   .text       
-     Timer_Set                                 D5F4      37      55       3   .text       
+     Timer_SetupPeriodicTimer                  D03F      2E      46       1   .text       
+     Timer_PeriodicTimerEnable                 D06D      1B      27       1   .text       
+     Timer_Setup                               D088      22      34       1   .text       
+     Timer_Init                                D0AA     3A7     935      19   .text       
+     Timer_Enable                              D451      80     128       3   .text       
+     Timer_Enabled                             D4D1      62      98       1   .text       
+     Timer_Set                                 D533      37      55       3   .text       
 - VARIABLES:
 MODULE:                 -- HMI.c.o --
 - PROCEDURES:
-     HMI_Setup                                 D62B      7C     124       1   .text       
-     TIE5_ISR                                  D6A7      61      97       1   .text       
-     CreateMenu                                D708     33C     828      94   .text       
-     HandleButtonPress                         DA44      DB     219       1   .text       
-     CycleData                                 DB1F     103     259       4   .text       
-     RevertSettings                            DC22      24      36       2   .text       
-     MoveUp                                    DC46      21      33       1   .text       
-     MoveDown                                  DC67      21      33       1   .text       
-     SelectItem                                DC88      4A      74       1   .text       
+     HMI_Setup                                 D56A      7F     127       1   .text       
+     HMI_Update                                D5E9       6       6       1   .text       
+     TIE5_ISR                                  D5EF      5C      92       1   .text       
+     CreateMenu                                D64B     331     817      80   .text       
+     HandleButtonPress                         D97C     11F     287      20   .text       
+     CycleData                                 DA9B     103     259       4   .text       
+     RevertSettings                            DB9E      24      36       2   .text       
+     MoveUp                                    DBC2      21      33       1   .text       
+     MoveDown                                  DBE3      21      33       1   .text       
+     SelectItem                                DC04      4A      74       1   .text       
 - VARIABLES:
-     STRING..................1                 C03D      11      17       1   .rodata1    
-     STRING..................2                 C04E      11      17       1   .rodata1    
-     STRING..................3                 C05F      11      17       1   .rodata1    
-     STRING..................4                 C070      11      17       1   .rodata1    
-     STRING..................5                 C081      11      17       1   .rodata1    
-     STRING..................6                 C092      11      17       1   .rodata1    
-     STRING..................7                 C0A3      11      17       1   .rodata1    
-     STRING.....DORMANT......8                 C0B4      11      17       1   .rodata1    
-     STRING.METERING.TIME....9                 C0C5      11      17       1   .rodata1    
-     STRING..................10                C0D6      11      17       1   .rodata1    
-     STRING..................11                C0E7      11      17       1   .rodata1    
-     STRING..................12                C0F8      11      17       1   .rodata1    
-     STRING..................13                C109      11      17       1   .rodata1    
-     STRING..................14                C11A      11      17       1   .rodata1    
-     STRING..................15                C12B      11      17       1   .rodata1    
-     STRING.......CYC........16                C13C      11      17       1   .rodata1    
-     STRING.AVERAGE.POWER....17                C14D      11      17       1   .rodata1    
-     STRING..................18                C15E      11      17       1   .rodata1    
-     STRING..................19                C16F      11      17       1   .rodata1    
-     STRING..................20                C180      11      17       1   .rodata1    
-     STRING..................21                C191      11      17       1   .rodata1    
-     STRING..................22                C1A2      11      17       1   .rodata1    
-     STRING..................23                C1B3      11      17       1   .rodata1    
-     STRING.......CYC........24                C1C4      11      17       1   .rodata1    
-     STRING.TOTAL.ENERGY....25                 C1D5      10      16       1   .rodata1    
-     STRING..................26                C1E5      11      17       1   .rodata1    
-     STRING..................27                C1F6      11      17       1   .rodata1    
-     STRING..................28                C207      11      17       1   .rodata1    
-     STRING..................29                C218      11      17       1   .rodata1    
-     STRING..................30                C229      11      17       1   .rodata1    
-     STRING..................31                C23A      11      17       1   .rodata1    
-     STRING.......CYC........32                C24B      11      17       1   .rodata1    
-     STRING.TOTAL.COST.......33                C25C      11      17       1   .rodata1    
-     STRING..................34                C26D      11      17       1   .rodata1    
-     STRING..................35                C27E      11      17       1   .rodata1    
-     STRING..................36                C28F      11      17       1   .rodata1    
-     STRING..................37                C2A0      11      17       1   .rodata1    
-     STRING..................38                C2B1      11      17       1   .rodata1    
-     STRING..................39                C2C2      11      17       1   .rodata1    
-     STRING.......CYC........40                C2D3      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.41                C2E4      11      17       1   .rodata1    
-     STRING..ModCon.Nb..42                     C2F5       C      12       1   .rodata1    
-     STRING..Version...V1.0..43                C301      11      17       1   .rodata1    
-     STRING..Debug......44                     C312       C      12       1   .rodata1    
-     STRING.ON..45                             C31E       4       4       1   .rodata1    
-     STRING.OFF.46                             C322       4       4       1   .rodata1    
-     STRING..Prot.Mode..47                     C326       C      12       1   .rodata1    
-     STRING.ASYN..48                           C332       6       6       1   .rodata1    
-     STRING.SYNC..49                           C338       6       6       1   .rodata1    
-     STRING..................50                C33E      11      17       1   .rodata1    
-     STRING..................51                C34F      11      17       1   .rodata1    
-     STRING.......MENU.......52                C360      11      17       1   .rodata1    
-     STRING...Settings.MENU..53                C371      11      17       1   .rodata1    
-     STRING..ModCon.Settings.54                C382      11      17       1   .rodata1    
-     STRING..LCD.Settings....55                C393      11      17       1   .rodata1    
-     STRING..................56                C3A4      11      17       1   .rodata1    
-     STRING..................57                C3B5      11      17       1   .rodata1    
-     STRING..................58                C3C6      11      17       1   .rodata1    
-     STRING..................59                C3D7      11      17       1   .rodata1    
-     STRING.UP.DN....SEL.BAK.60                C3E8      11      17       1   .rodata1    
-     STRING..LCD.Settings....61                C3F9      11      17       1   .rodata1    
-     STRING..Contrast.....62                   C40A       E      14       1   .rodata1    
-     STRING..Backlight....63                   C418       E      14       1   .rodata1    
-     STRING.ON..64                             C426       4       4       1   .rodata1    
-     STRING.OFF.65                             C42A       4       4       1   .rodata1    
-     STRING..................66                C42E      11      17       1   .rodata1    
-     STRING..................67                C43F      11      17       1   .rodata1    
-     STRING..................68                C450      11      17       1   .rodata1    
-     STRING..................69                C461      11      17       1   .rodata1    
-     STRING.UP.DN.CY.SEL.SAV.70                C472      11      17       1   .rodata1    
-     STRING..ModCon.Settings.71                C483      11      17       1   .rodata1    
-     STRING..ModCon.Nb..72                     C494       C      12       1   .rodata1    
-     STRING..Prot.Mode..73                     C4A0       C      12       1   .rodata1    
-     STRING.ASYN..74                           C4AC       6       6       1   .rodata1    
-     STRING.SYNC..75                           C4B2       6       6       1   .rodata1    
-     STRING..Debug......76                     C4B8       C      12       1   .rodata1    
-     STRING.ON..77                             C4C4       4       4       1   .rodata1    
-     STRING.OFF.78                             C4C8       4       4       1   .rodata1    
-     STRING..................79                C4CC      11      17       1   .rodata1    
-     STRING..................80                C4DD      11      17       1   .rodata1    
-     STRING..................81                C4EE      11      17       1   .rodata1    
-     STRING.UP.DN.CY.SEL.SAV.82                C4FF      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.83                C510      11      17       1   .rodata1    
-     STRING..................84                C521      11      17       1   .rodata1    
-     STRING.Would.you.like...85                C532      11      17       1   .rodata1    
-     STRING.to.save.your.....86                C543      11      17       1   .rodata1    
-     STRING.changes..........87                C554      11      17       1   .rodata1    
-     STRING..................88                C565      11      17       1   .rodata1    
-     STRING..................89                C576      11      17       1   .rodata1    
-     STRING.YES...........NO.90                C587      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.91                C598      11      17       1   .rodata1    
-     STRING..................92                C5A9      11      17       1   .rodata1    
-     STRING.Your.new.setting.93                C5BA      11      17       1   .rodata1    
-     STRING.have.been.saved..94                C5CB      11      17       1   .rodata1    
-     STRING.successfully.....95                C5DC      11      17       1   .rodata1    
-     STRING..................96                C5ED      11      17       1   .rodata1    
-     STRING..................97                C5FE      11      17       1   .rodata1    
-     STRING..................98                C60F      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.99                C620      11      17       1   .rodata1    
-     STRING..................100               C631      11      17       1   .rodata1    
-     STRING.Your.new.setting.101               C642      11      17       1   .rodata1    
-     STRING.have.not.been....102               C653      11      17       1   .rodata1    
-     STRING.saved............103               C664      11      17       1   .rodata1    
-     STRING.successfully.....104               C675      11      17       1   .rodata1    
-     STRING..................105               C686      11      17       1   .rodata1    
-     STRING..................106               C697      11      17       1   .rodata1    
-     STRING..Contrast.....107                  C6A8       E      14       1   .rodata1    
-     STRING..Backlight....108                  C6B6       E      14       1   .rodata1    
-     STRING.ON..109                            C6C4       4       4       1   .rodata1    
-     STRING.OFF.110                            C6C8       4       4       1   .rodata1    
-     STRING..ModCon.Nb..111                    C6CC       C      12       1   .rodata1    
-     STRING..Prot.Mode..112                    C6D8       C      12       1   .rodata1    
-     STRING.ASYN..113                          C6E4       6       6       1   .rodata1    
-     STRING.SYNC..114                          C6EA       6       6       1   .rodata1    
-     STRING..Debug......115                    C6F0       C      12       1   .rodata1    
-     STRING.ON..116                            C6FC       4       4       1   .rodata1    
-     STRING.OFF.117                            C700       4       4       1   .rodata1    
+     STRING.METERING.TIME....1                 C03D      11      17       1   .rodata1    
+     STRING...2                                C04E       2       2       1   .rodata1    
+     STRING...3                                C050       2       2       1   .rodata1    
+     STRING...4                                C052       2       2       1   .rodata1    
+     STRING..................5                 C054      11      17       1   .rodata1    
+     STRING..................6                 C065      11      17       1   .rodata1    
+     STRING..................7                 C076      11      17       1   .rodata1    
+     STRING..................8                 C087      11      17       1   .rodata1    
+     STRING..................9                 C098      11      17       1   .rodata1    
+     STRING.......CYC........10                C0A9      11      17       1   .rodata1    
+     STRING.AVERAGE.POWER....11                C0BA      11      17       1   .rodata1    
+     STRING..................12                C0CB      11      17       1   .rodata1    
+     STRING..................13                C0DC      11      17       1   .rodata1    
+     STRING..................14                C0ED      11      17       1   .rodata1    
+     STRING..................15                C0FE      11      17       1   .rodata1    
+     STRING..................16                C10F      11      17       1   .rodata1    
+     STRING..................17                C120      11      17       1   .rodata1    
+     STRING.......CYC........18                C131      11      17       1   .rodata1    
+     STRING.TOTAL.ENERGY....19                 C142      10      16       1   .rodata1    
+     STRING..................20                C152      11      17       1   .rodata1    
+     STRING..................21                C163      11      17       1   .rodata1    
+     STRING..................22                C174      11      17       1   .rodata1    
+     STRING..................23                C185      11      17       1   .rodata1    
+     STRING..................24                C196      11      17       1   .rodata1    
+     STRING..................25                C1A7      11      17       1   .rodata1    
+     STRING.......CYC........26                C1B8      11      17       1   .rodata1    
+     STRING.TOTAL.COST.......27                C1C9      11      17       1   .rodata1    
+     STRING..................28                C1DA      11      17       1   .rodata1    
+     STRING..................29                C1EB      11      17       1   .rodata1    
+     STRING..................30                C1FC      11      17       1   .rodata1    
+     STRING..................31                C20D      11      17       1   .rodata1    
+     STRING..................32                C21E      11      17       1   .rodata1    
+     STRING..................33                C22F      11      17       1   .rodata1    
+     STRING.......CYC........34                C240      11      17       1   .rodata1    
+     STRING.ES.Group.13.MENU.35                C251      11      17       1   .rodata1    
+     STRING..ModCon.Nb..36                     C262       C      12       1   .rodata1    
+     STRING..Version...V1.0..37                C26E      11      17       1   .rodata1    
+     STRING..Debug......38                     C27F       C      12       1   .rodata1    
+     STRING.ON..39                             C28B       4       4       1   .rodata1    
+     STRING.OFF.40                             C28F       4       4       1   .rodata1    
+     STRING..Prot.Mode..41                     C293       C      12       1   .rodata1    
+     STRING.ASYN..42                           C29F       6       6       1   .rodata1    
+     STRING.SYNC..43                           C2A5       6       6       1   .rodata1    
+     STRING..................44                C2AB      11      17       1   .rodata1    
+     STRING..................45                C2BC      11      17       1   .rodata1    
+     STRING.......MENU.......46                C2CD      11      17       1   .rodata1    
+     STRING...Settings.MENU..47                C2DE      11      17       1   .rodata1    
+     STRING..ModCon.Settings.48                C2EF      11      17       1   .rodata1    
+     STRING..LCD.Settings....49                C300      11      17       1   .rodata1    
+     STRING..................50                C311      11      17       1   .rodata1    
+     STRING..................51                C322      11      17       1   .rodata1    
+     STRING..................52                C333      11      17       1   .rodata1    
+     STRING..................53                C344      11      17       1   .rodata1    
+     STRING.UP.DN....SEL.BAK.54                C355      11      17       1   .rodata1    
+     STRING..LCD.Settings....55                C366      11      17       1   .rodata1    
+     STRING..Contrast.....56                   C377       E      14       1   .rodata1    
+     STRING..Backlight....57                   C385       E      14       1   .rodata1    
+     STRING.ON..58                             C393       4       4       1   .rodata1    
+     STRING.OFF.59                             C397       4       4       1   .rodata1    
+     STRING..................60                C39B      11      17       1   .rodata1    
+     STRING..................61                C3AC      11      17       1   .rodata1    
+     STRING..................62                C3BD      11      17       1   .rodata1    
+     STRING..................63                C3CE      11      17       1   .rodata1    
+     STRING.UP.DN.CY.SEL.SAV.64                C3DF      11      17       1   .rodata1    
+     STRING..ModCon.Settings.65                C3F0      11      17       1   .rodata1    
+     STRING..ModCon.Nb..66                     C401       C      12       1   .rodata1    
+     STRING..Prot.Mode..67                     C40D       C      12       1   .rodata1    
+     STRING.ASYN..68                           C419       6       6       1   .rodata1    
+     STRING.SYNC..69                           C41F       6       6       1   .rodata1    
+     STRING..Debug......70                     C425       C      12       1   .rodata1    
+     STRING.ON..71                             C431       4       4       1   .rodata1    
+     STRING.OFF.72                             C435       4       4       1   .rodata1    
+     STRING..................73                C439      11      17       1   .rodata1    
+     STRING..................74                C44A      11      17       1   .rodata1    
+     STRING..................75                C45B      11      17       1   .rodata1    
+     STRING.UP.DN.CY.SEL.SAV.76                C46C      11      17       1   .rodata1    
+     STRING.ES.Group.13.MENU.77                C47D      11      17       1   .rodata1    
+     STRING..................78                C48E      11      17       1   .rodata1    
+     STRING.Would.you.like...79                C49F      11      17       1   .rodata1    
+     STRING.to.save.your.....80                C4B0      11      17       1   .rodata1    
+     STRING.changes..........81                C4C1      11      17       1   .rodata1    
+     STRING..................82                C4D2      11      17       1   .rodata1    
+     STRING..................83                C4E3      11      17       1   .rodata1    
+     STRING.YES...........NO.84                C4F4      11      17       1   .rodata1    
+     STRING.ES.Group.13.MENU.85                C505      11      17       1   .rodata1    
+     STRING..................86                C516      11      17       1   .rodata1    
+     STRING.Your.new.setting.87                C527      11      17       1   .rodata1    
+     STRING.have.been.saved..88                C538      11      17       1   .rodata1    
+     STRING.successfully.....89                C549      11      17       1   .rodata1    
+     STRING..................90                C55A      11      17       1   .rodata1    
+     STRING..................91                C56B      11      17       1   .rodata1    
+     STRING..................92                C57C      11      17       1   .rodata1    
+     STRING..Contrast.....93                   C58D       E      14       1   .rodata1    
+     STRING..Backlight....94                   C59B       E      14       1   .rodata1    
+     STRING.ON..95                             C5A9       4       4       1   .rodata1    
+     STRING.OFF.96                             C5AD       4       4       1   .rodata1    
+     STRING..ModCon.Nb..97                     C5B1       C      12       1   .rodata1    
+     STRING..Prot.Mode..98                     C5BD       C      12       1   .rodata1    
+     STRING.ASYN..99                           C5C9       6       6       1   .rodata1    
+     STRING.SYNC..100                          C5CF       6       6       1   .rodata1    
+     STRING..Debug......101                    C5D5       C      12       1   .rodata1    
+     STRING.ON..102                            C5E1       4       4       1   .rodata1    
+     STRING.OFF.103                            C5E5       4       4       1   .rodata1    
      X                                         131E       1       1       3   .bss        
      Y                                         131F       1       1      19   .bss        
      ItemSelected                              1320       2       2      10   .bss        
@@ -781,46 +772,47 @@ MODULE:                 -- HMI.c.o --
      TempDebug                                 1327       1       1       6   .bss        
      Interval                                  1328       4       4      11   .bss        
      LCDPrevState                              132C       2       2       3   .bss        
-     PBState                                   132E       2       2       3   .bss        
-     PrevPBState                               1330       2       2       2   .bss        
+     LCDCurrentState                           132E       2       2       3   .bss        
+     PBState                                   1330       2       2       3   .bss        
+     PrevPBState                               1332       2       2       2   .bss        
      _Vector_13                                FFE4       2       2       0   .abs_section_ffe4
 MODULE:                 -- buttons.c.o --
 - PROCEDURES:
-     Buttons_Get                               DCD2      10      16       1   .text       
+     Buttons_Get                               DC4E      10      16       1   .text       
 - VARIABLES:
 MODULE:                 -- LCD.c.o --
 - PROCEDURES:
-     LCD_Setup                                 DCE2      78     120       1   .text       
-     LCD_Clear                                 DD5A      31      49       2   .text       
-     LCD_ClearLine                             DD8B       9       9      11   .text       
-     LCD_CursorHome                            DD94       8       8       1   .text       
-     LCD_TextHome                              DD9C       D      13       1   .text       
-     LCD_TextArea                              DDA9       C      12       1   .text       
-     LCD_OutChar                               DDB5      14      20       5   .text       
-     LCD_OutInteger                            DDC9      95     149       3   .text       
-     LCD_OutString                             DE5E      1F      31      28   .text       
-     LCD_SetFunction                           DE7D      2C      44       2   .text       
-     LCD_SetLine                               DEA9       B      11      18   .text       
-     LCD_SetCursor                             DEB4       B      11       3   .text       
-     SetCGAddress                              DEBF      12      18       2   .text       
-     SetRAMAddress                             DED1      12      18       4   .text       
-     StatusCheck                               DEE3      1E      30       1   .text       
-     WaitForReady                              DF01       7       7       2   .text       
-     WriteCommand                              DF08      1A      26       8   .text       
-     WriteData                                 DF22      1A      26       9   .text       
+     LCD_Setup                                 DC5E      78     120       1   .text       
+     LCD_Clear                                 DCD6      31      49       2   .text       
+     LCD_ClearLine                             DD07       9       9      11   .text       
+     LCD_CursorHome                            DD10       8       8       1   .text       
+     LCD_TextHome                              DD18       D      13       1   .text       
+     LCD_TextArea                              DD25       C      12       1   .text       
+     LCD_OutChar                               DD31      14      20       5   .text       
+     LCD_OutInteger                            DD45      95     149       6   .text       
+     LCD_OutString                             DDDA      1F      31      36   .text       
+     LCD_SetFunction                           DDF9      2C      44       3   .text       
+     LCD_SetLine                               DE25       B      11      18   .text       
+     LCD_SetCursor                             DE30       B      11       4   .text       
+     SetCGAddress                              DE3B      12      18       2   .text       
+     SetRAMAddress                             DE4D      12      18       4   .text       
+     StatusCheck                               DE5F      1E      30       1   .text       
+     WaitForReady                              DE7D       7       7       2   .text       
+     WriteCommand                              DE84      1A      26       8   .text       
+     WriteData                                 DE9E      1A      26       9   .text       
 - VARIABLES:
-     STRING..................1                 C704      11      17       1   .rodata1    
+     STRING..................1                 C5E9      11      17       1   .rodata1    
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12a256.c.o                             278      0      0
-  main.c.o                                    96    753      4
+  main.c.o                                   104    756      4
   Start12.c.o                                  0     49      0
   rtshc12.c.o (ansisi.lib)                     0    381      0
   analog.c.o                                   0    260      0
-  clock.c.o                                    0    143      0
+  clock.c.o                                    0    230      0
   CRG.c.o                                      0    164      2
   EEPROM.c.o                                   0    497      0
   FIFO.c.o                                     0    139      0
@@ -828,7 +820,7 @@ MODULE STATISTIC
   SCI.c.o                                    524    212      4
   SPI.c.o                                      0    124      0
   timer.c.o                                    0   1323      0
-  HMI.c.o                                     20   1703   1737
+  HMI.c.o                                     22   1764   1454
   buttons.c.o                                  0     16      0
   LCD.c.o                                      0    602     17
   other                                      256     12      2
@@ -846,7 +838,7 @@ SECTION: ".text"
   FIFO_Put FIFO_Get Packet_Setup Packet_Put Packet_Get shuffleFSM SCI_Setup 
   SCI_InChar SCI_OutChar SendData SCI0_ISR TIE7_ISR SPI_Setup SPI_ExchangeChar 
   Timer_SetupPeriodicTimer Timer_PeriodicTimerEnable Timer_Setup Timer_Init 
-  Timer_Enable Timer_Enabled Timer_Set HMI_Setup TIE5_ISR CreateMenu 
+  Timer_Enable Timer_Enabled Timer_Set HMI_Setup HMI_Update TIE5_ISR CreateMenu 
   HandleButtonPress CycleData RevertSettings MoveUp MoveDown SelectItem 
   Buttons_Get LCD_Setup LCD_Clear LCD_ClearLine LCD_CursorHome LCD_TextHome 
   LCD_TextArea LCD_OutChar LCD_OutInteger LCD_OutString LCD_SetFunction 
@@ -854,64 +846,56 @@ SECTION: ".text"
   WriteCommand WriteData 
 SECTION: ".bss"
   FSM StateIndex bSwapFlag RxFIFO TxFIFO X Y ItemSelected TempContrast 
-  TempBacklight TempMCNb TempProtMode TempDebug Interval LCDPrevState PBState 
-  PrevPBState 
+  TempBacklight TempMCNb TempProtMode TempDebug Interval LCDPrevState 
+  LCDCurrentState PBState PrevPBState 
 SECTION: ".init"
   Init _Startup 
 SECTION: ".rodata"
   Timer_Ch7_Delay 
 SECTION: ".rodata1"
-  STRING..................1 STRING..................2 
-  STRING..................3 STRING..................4 STRING..................5 
-  STRING..................6 STRING..................7 STRING.....DORMANT......8 
-  STRING.METERING.TIME....9 STRING..................10 
-  STRING..................11 STRING..................12 
-  STRING..................13 STRING..................14 
-  STRING..................15 STRING.......CYC........16 
-  STRING.AVERAGE.POWER....17 STRING..................18 
-  STRING..................19 STRING..................20 
-  STRING..................21 STRING..................22 
-  STRING..................23 STRING.......CYC........24 
-  STRING.TOTAL.ENERGY....25 STRING..................26 
-  STRING..................27 STRING..................28 
-  STRING..................29 STRING..................30 
-  STRING..................31 STRING.......CYC........32 
-  STRING.TOTAL.COST.......33 STRING..................34 
-  STRING..................35 STRING..................36 
-  STRING..................37 STRING..................38 
-  STRING..................39 STRING.......CYC........40 
-  STRING.ES.Group.13.MENU.41 STRING..ModCon.Nb..42 STRING..Version...V1.0..43 
-  STRING..Debug......44 STRING.ON..45 STRING.OFF.46 STRING..Prot.Mode..47 
-  STRING.ASYN..48 STRING.SYNC..49 STRING..................50 
-  STRING..................51 STRING.......MENU.......52 
-  STRING...Settings.MENU..53 STRING..ModCon.Settings.54 
-  STRING..LCD.Settings....55 STRING..................56 
-  STRING..................57 STRING..................58 
-  STRING..................59 STRING.UP.DN....SEL.BAK.60 
-  STRING..LCD.Settings....61 STRING..Contrast.....62 STRING..Backlight....63 
-  STRING.ON..64 STRING.OFF.65 STRING..................66 
-  STRING..................67 STRING..................68 
-  STRING..................69 STRING.UP.DN.CY.SEL.SAV.70 
-  STRING..ModCon.Settings.71 STRING..ModCon.Nb..72 STRING..Prot.Mode..73 
-  STRING.ASYN..74 STRING.SYNC..75 STRING..Debug......76 STRING.ON..77 
-  STRING.OFF.78 STRING..................79 STRING..................80 
-  STRING..................81 STRING.UP.DN.CY.SEL.SAV.82 
-  STRING.ES.Group.13.MENU.83 STRING..................84 
-  STRING.Would.you.like...85 STRING.to.save.your.....86 
-  STRING.changes..........87 STRING..................88 
-  STRING..................89 STRING.YES...........NO.90 
-  STRING.ES.Group.13.MENU.91 STRING..................92 
-  STRING.Your.new.setting.93 STRING.have.been.saved..94 
-  STRING.successfully.....95 STRING..................96 
-  STRING..................97 STRING..................98 
-  STRING.ES.Group.13.MENU.99 STRING..................100 
-  STRING.Your.new.setting.101 STRING.have.not.been....102 
-  STRING.saved............103 STRING.successfully.....104 
-  STRING..................105 STRING..................106 
-  STRING..Contrast.....107 STRING..Backlight....108 STRING.ON..109 
-  STRING.OFF.110 STRING..ModCon.Nb..111 STRING..Prot.Mode..112 STRING.ASYN..113 
-  STRING.SYNC..114 STRING..Debug......115 STRING.ON..116 STRING.OFF.117 
-  STRING..................1 
+  STRING.METERING.TIME....1 STRING...2 STRING...3 STRING...4 
+  STRING..................5 STRING..................6 STRING..................7 
+  STRING..................8 STRING..................9 
+  STRING.......CYC........10 STRING.AVERAGE.POWER....11 
+  STRING..................12 STRING..................13 
+  STRING..................14 STRING..................15 
+  STRING..................16 STRING..................17 
+  STRING.......CYC........18 STRING.TOTAL.ENERGY....19 
+  STRING..................20 STRING..................21 
+  STRING..................22 STRING..................23 
+  STRING..................24 STRING..................25 
+  STRING.......CYC........26 STRING.TOTAL.COST.......27 
+  STRING..................28 STRING..................29 
+  STRING..................30 STRING..................31 
+  STRING..................32 STRING..................33 
+  STRING.......CYC........34 STRING.ES.Group.13.MENU.35 STRING..ModCon.Nb..36 
+  STRING..Version...V1.0..37 STRING..Debug......38 STRING.ON..39 STRING.OFF.40 
+  STRING..Prot.Mode..41 STRING.ASYN..42 STRING.SYNC..43 
+  STRING..................44 STRING..................45 
+  STRING.......MENU.......46 STRING...Settings.MENU..47 
+  STRING..ModCon.Settings.48 STRING..LCD.Settings....49 
+  STRING..................50 STRING..................51 
+  STRING..................52 STRING..................53 
+  STRING.UP.DN....SEL.BAK.54 STRING..LCD.Settings....55 STRING..Contrast.....56 
+  STRING..Backlight....57 STRING.ON..58 STRING.OFF.59 
+  STRING..................60 STRING..................61 
+  STRING..................62 STRING..................63 
+  STRING.UP.DN.CY.SEL.SAV.64 STRING..ModCon.Settings.65 STRING..ModCon.Nb..66 
+  STRING..Prot.Mode..67 STRING.ASYN..68 STRING.SYNC..69 STRING..Debug......70 
+  STRING.ON..71 STRING.OFF.72 STRING..................73 
+  STRING..................74 STRING..................75 
+  STRING.UP.DN.CY.SEL.SAV.76 STRING.ES.Group.13.MENU.77 
+  STRING..................78 STRING.Would.you.like...79 
+  STRING.to.save.your.....80 STRING.changes..........81 
+  STRING..................82 STRING..................83 
+  STRING.YES...........NO.84 STRING.ES.Group.13.MENU.85 
+  STRING..................86 STRING.Your.new.setting.87 
+  STRING.have.been.saved..88 STRING.successfully.....89 
+  STRING..................90 STRING..................91 
+  STRING..................92 STRING..Contrast.....93 STRING..Backlight....94 
+  STRING.ON..95 STRING.OFF.96 STRING..ModCon.Nb..97 STRING..Prot.Mode..98 
+  STRING.ASYN..99 STRING.SYNC..100 STRING..Debug......101 STRING.ON..102 
+  STRING.OFF.103 STRING..................1 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1362,7 +1346,8 @@ SECTION: ".abs_section_ffca"
   _Vector_26 
 SECTION: ".common"
   Packet Packet_CommandOK Analog_Input NbAnalogInputs NbAnalogOutputs 
-  Clock_Seconds Clock_Minutes Clock_MicroSeconds 
+  Clock_Seconds Clock_Minutes Clock_MicroSeconds System_Seconds System_Minutes 
+  System_Hours System_Days 
 SECTION: "RUNTIME"
   _BDIVMODU _LSHRU _LCMP _lDivMod _LDIVU _NEG_P _LDIVS _CASE_CHECKED 
   _CASE_CHECKED_BYTE _CASE_SEARCH_8_BYTE 
@@ -1617,223 +1602,215 @@ OBJECT LIST SORTED BY ADDRESS
      TempDebug                                 1327       1       1       6   .bss        
      Interval                                  1328       4       4      11   .bss        
      LCDPrevState                              132C       2       2       3   .bss        
-     PBState                                   132E       2       2       3   .bss        
-     PrevPBState                               1330       2       2       2   .bss        
-     Packet                                    1332       4       4      28   .common     
-     Packet_CommandOK                          1336       2       2       2   .common     
-     Analog_Input                              1338      50      80      17   .common     
-     NbAnalogInputs                            1388       2       2       1   .common     
-     NbAnalogOutputs                           138A       2       2       1   .common     
-     Clock_Seconds                             138C       1       1       6   .common     
-     Clock_Minutes                             138D       1       1       3   .common     
-     Clock_MicroSeconds                        138E       4       4       9   .common     
+     LCDCurrentState                           132E       2       2       3   .bss        
+     PBState                                   1330       2       2       3   .bss        
+     PrevPBState                               1332       2       2       2   .bss        
+     Packet                                    1334       4       4      28   .common     
+     Packet_CommandOK                          1338       2       2       2   .common     
+     Analog_Input                              133A      50      80      17   .common     
+     NbAnalogInputs                            138A       2       2       1   .common     
+     NbAnalogOutputs                           138C       2       2       1   .common     
+     Clock_Seconds                             138E       1       1       6   .common     
+     Clock_Minutes                             138F       1       1       3   .common     
+     Clock_MicroSeconds                        1390       4       4      11   .common     
+     System_Seconds                            1394       2       2       5   .common     
+     System_Minutes                            1396       2       2       6   .common     
+     System_Hours                              1398       2       2       6   .common     
+     System_Days                               139A       2       2       3   .common     
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029       8       8       0   .init       
      Timer_Ch7_Delay                           C03B       2       2       1   .rodata     
-     STRING..................1                 C03D      11      17       1   .rodata1    
-     STRING..................2                 C04E      11      17       1   .rodata1    
-     STRING..................3                 C05F      11      17       1   .rodata1    
-     STRING..................4                 C070      11      17       1   .rodata1    
-     STRING..................5                 C081      11      17       1   .rodata1    
-     STRING..................6                 C092      11      17       1   .rodata1    
-     STRING..................7                 C0A3      11      17       1   .rodata1    
-     STRING.....DORMANT......8                 C0B4      11      17       1   .rodata1    
-     STRING.METERING.TIME....9                 C0C5      11      17       1   .rodata1    
-     STRING..................10                C0D6      11      17       1   .rodata1    
-     STRING..................11                C0E7      11      17       1   .rodata1    
-     STRING..................12                C0F8      11      17       1   .rodata1    
-     STRING..................13                C109      11      17       1   .rodata1    
-     STRING..................14                C11A      11      17       1   .rodata1    
-     STRING..................15                C12B      11      17       1   .rodata1    
-     STRING.......CYC........16                C13C      11      17       1   .rodata1    
-     STRING.AVERAGE.POWER....17                C14D      11      17       1   .rodata1    
-     STRING..................18                C15E      11      17       1   .rodata1    
-     STRING..................19                C16F      11      17       1   .rodata1    
-     STRING..................20                C180      11      17       1   .rodata1    
-     STRING..................21                C191      11      17       1   .rodata1    
-     STRING..................22                C1A2      11      17       1   .rodata1    
-     STRING..................23                C1B3      11      17       1   .rodata1    
-     STRING.......CYC........24                C1C4      11      17       1   .rodata1    
-     STRING.TOTAL.ENERGY....25                 C1D5      10      16       1   .rodata1    
-     STRING..................26                C1E5      11      17       1   .rodata1    
-     STRING..................27                C1F6      11      17       1   .rodata1    
-     STRING..................28                C207      11      17       1   .rodata1    
-     STRING..................29                C218      11      17       1   .rodata1    
-     STRING..................30                C229      11      17       1   .rodata1    
-     STRING..................31                C23A      11      17       1   .rodata1    
-     STRING.......CYC........32                C24B      11      17       1   .rodata1    
-     STRING.TOTAL.COST.......33                C25C      11      17       1   .rodata1    
-     STRING..................34                C26D      11      17       1   .rodata1    
-     STRING..................35                C27E      11      17       1   .rodata1    
-     STRING..................36                C28F      11      17       1   .rodata1    
-     STRING..................37                C2A0      11      17       1   .rodata1    
-     STRING..................38                C2B1      11      17       1   .rodata1    
-     STRING..................39                C2C2      11      17       1   .rodata1    
-     STRING.......CYC........40                C2D3      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.41                C2E4      11      17       1   .rodata1    
-     STRING..ModCon.Nb..42                     C2F5       C      12       1   .rodata1    
-     STRING..Version...V1.0..43                C301      11      17       1   .rodata1    
-     STRING..Debug......44                     C312       C      12       1   .rodata1    
-     STRING.ON..45                             C31E       4       4       1   .rodata1    
-     STRING.OFF.46                             C322       4       4       1   .rodata1    
-     STRING..Prot.Mode..47                     C326       C      12       1   .rodata1    
-     STRING.ASYN..48                           C332       6       6       1   .rodata1    
-     STRING.SYNC..49                           C338       6       6       1   .rodata1    
-     STRING..................50                C33E      11      17       1   .rodata1    
-     STRING..................51                C34F      11      17       1   .rodata1    
-     STRING.......MENU.......52                C360      11      17       1   .rodata1    
-     STRING...Settings.MENU..53                C371      11      17       1   .rodata1    
-     STRING..ModCon.Settings.54                C382      11      17       1   .rodata1    
-     STRING..LCD.Settings....55                C393      11      17       1   .rodata1    
-     STRING..................56                C3A4      11      17       1   .rodata1    
-     STRING..................57                C3B5      11      17       1   .rodata1    
-     STRING..................58                C3C6      11      17       1   .rodata1    
-     STRING..................59                C3D7      11      17       1   .rodata1    
-     STRING.UP.DN....SEL.BAK.60                C3E8      11      17       1   .rodata1    
-     STRING..LCD.Settings....61                C3F9      11      17       1   .rodata1    
-     STRING..Contrast.....62                   C40A       E      14       1   .rodata1    
-     STRING..Backlight....63                   C418       E      14       1   .rodata1    
-     STRING.ON..64                             C426       4       4       1   .rodata1    
-     STRING.OFF.65                             C42A       4       4       1   .rodata1    
-     STRING..................66                C42E      11      17       1   .rodata1    
-     STRING..................67                C43F      11      17       1   .rodata1    
-     STRING..................68                C450      11      17       1   .rodata1    
-     STRING..................69                C461      11      17       1   .rodata1    
-     STRING.UP.DN.CY.SEL.SAV.70                C472      11      17       1   .rodata1    
-     STRING..ModCon.Settings.71                C483      11      17       1   .rodata1    
-     STRING..ModCon.Nb..72                     C494       C      12       1   .rodata1    
-     STRING..Prot.Mode..73                     C4A0       C      12       1   .rodata1    
-     STRING.ASYN..74                           C4AC       6       6       1   .rodata1    
-     STRING.SYNC..75                           C4B2       6       6       1   .rodata1    
-     STRING..Debug......76                     C4B8       C      12       1   .rodata1    
-     STRING.ON..77                             C4C4       4       4       1   .rodata1    
-     STRING.OFF.78                             C4C8       4       4       1   .rodata1    
-     STRING..................79                C4CC      11      17       1   .rodata1    
-     STRING..................80                C4DD      11      17       1   .rodata1    
-     STRING..................81                C4EE      11      17       1   .rodata1    
-     STRING.UP.DN.CY.SEL.SAV.82                C4FF      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.83                C510      11      17       1   .rodata1    
-     STRING..................84                C521      11      17       1   .rodata1    
-     STRING.Would.you.like...85                C532      11      17       1   .rodata1    
-     STRING.to.save.your.....86                C543      11      17       1   .rodata1    
-     STRING.changes..........87                C554      11      17       1   .rodata1    
-     STRING..................88                C565      11      17       1   .rodata1    
-     STRING..................89                C576      11      17       1   .rodata1    
-     STRING.YES...........NO.90                C587      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.91                C598      11      17       1   .rodata1    
-     STRING..................92                C5A9      11      17       1   .rodata1    
-     STRING.Your.new.setting.93                C5BA      11      17       1   .rodata1    
-     STRING.have.been.saved..94                C5CB      11      17       1   .rodata1    
-     STRING.successfully.....95                C5DC      11      17       1   .rodata1    
-     STRING..................96                C5ED      11      17       1   .rodata1    
-     STRING..................97                C5FE      11      17       1   .rodata1    
-     STRING..................98                C60F      11      17       1   .rodata1    
-     STRING.ES.Group.13.MENU.99                C620      11      17       1   .rodata1    
-     STRING..................100               C631      11      17       1   .rodata1    
-     STRING.Your.new.setting.101               C642      11      17       1   .rodata1    
-     STRING.have.not.been....102               C653      11      17       1   .rodata1    
-     STRING.saved............103               C664      11      17       1   .rodata1    
-     STRING.successfully.....104               C675      11      17       1   .rodata1    
-     STRING..................105               C686      11      17       1   .rodata1    
-     STRING..................106               C697      11      17       1   .rodata1    
-     STRING..Contrast.....107                  C6A8       E      14       1   .rodata1    
-     STRING..Backlight....108                  C6B6       E      14       1   .rodata1    
-     STRING.ON..109                            C6C4       4       4       1   .rodata1    
-     STRING.OFF.110                            C6C8       4       4       1   .rodata1    
-     STRING..ModCon.Nb..111                    C6CC       C      12       1   .rodata1    
-     STRING..Prot.Mode..112                    C6D8       C      12       1   .rodata1    
-     STRING.ASYN..113                          C6E4       6       6       1   .rodata1    
-     STRING.SYNC..114                          C6EA       6       6       1   .rodata1    
-     STRING..Debug......115                    C6F0       C      12       1   .rodata1    
-     STRING.ON..116                            C6FC       4       4       1   .rodata1    
-     STRING.OFF.117                            C700       4       4       1   .rodata1    
-     STRING..................1                 C704      11      17       1   .rodata1    
-     main                                      C715      DD     221       1   .text       
-     HandlePacket                              C7F2      82     130       1   .text       
-     MCCNT_ISR                                 C874      43      67       1   .text       
-     HandleStartupPacket                       C8B7      44      68       2   .text       
-     HandleSpecialPacket                       C8FB      24      36       2   .text       
-     HandleNumberPacket                        C91F      2A      42       2   .text       
-     HandleModePacket                          C949      15      21       2   .text       
-     HandleEEPROMProgramPacket                 C95E      25      37       1   .text       
-     HandleEEPROMGetPacket                     C983      2A      42       1   .text       
-     HandleTimePacket                          C9AD      12      18       2   .text       
-     HandlePacketModePacket                    C9BF      28      40       1   .text       
-     HandleAnalogValPacket                     C9E7      1F      31       3   .text       
-     Analog_Setup                              CA06      3E      62       1   .text       
-     Analog_Get                                CA44      C6     198       2   .text       
-     Clock_Setup                               CB0A      11      17       1   .text       
-     Clock_Update                              CB1B      7E     126       1   .text       
-     CRG_SetupPLL                              CB99      51      81       1   .text       
-     CRG_SetupCOP                              CBEA      21      33       1   .text       
-     CRG_SetupRTI                              CC0B       E      14       1   .text       
-     CRG_RTI_ISR                               CC19      24      36       1   .text       
-     EEPROM_Setup                              CC3D      C5     197       2   .text       
-     EEPROM_Write32                            CD02      50      80       1   .text       
-     EEPROM_Write16                            CD52      43      67      13   .text       
-     EEPROM_Write8                             CD95      2C      44       1   .text       
-     EEPROM_Erase                              CDC1      36      54       1   .text       
-     Write                                     CDF7      37      55       5   .text       
-     FIFO_Init                                 CE2E       F      15       2   .text       
-     FIFO_Put                                  CE3D      3F      63       2   .text       
-     FIFO_Get                                  CE7C      3D      61       2   .text       
-     Packet_Setup                              CEB9      1B      27       1   .text       
-     Packet_Put                                CED4      4B      75      10   .text       
-     Packet_Get                                CF1F      6A     106       1   .text       
-     shuffleFSM                                CF89      27      39       1   .text       
-     SCI_Setup                                 CFB0      5E      94       1   .text       
-     SCI_InChar                                D00E       E      14       1   .text       
-     SCI_OutChar                               D01C      15      21       5   .text       
-     SendData                                  D031      30      48       2   .text       
-     SCI0_ISR                                  D061      10      16       1   .text       
-     TIE7_ISR                                  D071      13      19       1   .text       
-     SPI_Setup                                 D084      67     103       1   .text       
-     SPI_ExchangeChar                          D0EB      15      21       3   .text       
-     Timer_SetupPeriodicTimer                  D100      2E      46       1   .text       
-     Timer_PeriodicTimerEnable                 D12E      1B      27       1   .text       
-     Timer_Setup                               D149      22      34       1   .text       
-     Timer_Init                                D16B     3A7     935      19   .text       
-     Timer_Enable                              D512      80     128       3   .text       
-     Timer_Enabled                             D592      62      98       1   .text       
-     Timer_Set                                 D5F4      37      55       3   .text       
-     HMI_Setup                                 D62B      7C     124       1   .text       
-     TIE5_ISR                                  D6A7      61      97       1   .text       
-     CreateMenu                                D708     33C     828      94   .text       
-     HandleButtonPress                         DA44      DB     219       1   .text       
-     CycleData                                 DB1F     103     259       4   .text       
-     RevertSettings                            DC22      24      36       2   .text       
-     MoveUp                                    DC46      21      33       1   .text       
-     MoveDown                                  DC67      21      33       1   .text       
-     SelectItem                                DC88      4A      74       1   .text       
-     Buttons_Get                               DCD2      10      16       1   .text       
-     LCD_Setup                                 DCE2      78     120       1   .text       
-     LCD_Clear                                 DD5A      31      49       2   .text       
-     LCD_ClearLine                             DD8B       9       9      11   .text       
-     LCD_CursorHome                            DD94       8       8       1   .text       
-     LCD_TextHome                              DD9C       D      13       1   .text       
-     LCD_TextArea                              DDA9       C      12       1   .text       
-     LCD_OutChar                               DDB5      14      20       5   .text       
-     LCD_OutInteger                            DDC9      95     149       3   .text       
-     LCD_OutString                             DE5E      1F      31      28   .text       
-     LCD_SetFunction                           DE7D      2C      44       2   .text       
-     LCD_SetLine                               DEA9       B      11      18   .text       
-     LCD_SetCursor                             DEB4       B      11       3   .text       
-     SetCGAddress                              DEBF      12      18       2   .text       
-     SetRAMAddress                             DED1      12      18       4   .text       
-     StatusCheck                               DEE3      1E      30       1   .text       
-     WaitForReady                              DF01       7       7       2   .text       
-     WriteCommand                              DF08      1A      26       8   .text       
-     WriteData                                 DF22      1A      26       9   .text       
-     _BDIVMODU                                 DF3C       A      10       2   RUNTIME     
-     _LSHRU                                    DF46      11      17       1   RUNTIME     
-     _LCMP                                     DF57      19      25       1   RUNTIME     
-     _lDivMod                                  DF70      BE     190       3   RUNTIME     
-     _LDIVU                                    E02E       E      14       4   RUNTIME     
-     _NEG_P                                    E03C       F      15       4   RUNTIME     
-     _LDIVS                                    E04B      35      53       1   RUNTIME     
-     _CASE_CHECKED                             E080       B      11       2   RUNTIME     
-     _CASE_CHECKED_BYTE                        E08B      14      20      22   RUNTIME     
-     _CASE_SEARCH_8_BYTE                       E09F      1A      26       3   RUNTIME     
+     STRING.METERING.TIME....1                 C03D      11      17       1   .rodata1    
+     STRING...2                                C04E       2       2       1   .rodata1    
+     STRING...3                                C050       2       2       1   .rodata1    
+     STRING...4                                C052       2       2       1   .rodata1    
+     STRING..................5                 C054      11      17       1   .rodata1    
+     STRING..................6                 C065      11      17       1   .rodata1    
+     STRING..................7                 C076      11      17       1   .rodata1    
+     STRING..................8                 C087      11      17       1   .rodata1    
+     STRING..................9                 C098      11      17       1   .rodata1    
+     STRING.......CYC........10                C0A9      11      17       1   .rodata1    
+     STRING.AVERAGE.POWER....11                C0BA      11      17       1   .rodata1    
+     STRING..................12                C0CB      11      17       1   .rodata1    
+     STRING..................13                C0DC      11      17       1   .rodata1    
+     STRING..................14                C0ED      11      17       1   .rodata1    
+     STRING..................15                C0FE      11      17       1   .rodata1    
+     STRING..................16                C10F      11      17       1   .rodata1    
+     STRING..................17                C120      11      17       1   .rodata1    
+     STRING.......CYC........18                C131      11      17       1   .rodata1    
+     STRING.TOTAL.ENERGY....19                 C142      10      16       1   .rodata1    
+     STRING..................20                C152      11      17       1   .rodata1    
+     STRING..................21                C163      11      17       1   .rodata1    
+     STRING..................22                C174      11      17       1   .rodata1    
+     STRING..................23                C185      11      17       1   .rodata1    
+     STRING..................24                C196      11      17       1   .rodata1    
+     STRING..................25                C1A7      11      17       1   .rodata1    
+     STRING.......CYC........26                C1B8      11      17       1   .rodata1    
+     STRING.TOTAL.COST.......27                C1C9      11      17       1   .rodata1    
+     STRING..................28                C1DA      11      17       1   .rodata1    
+     STRING..................29                C1EB      11      17       1   .rodata1    
+     STRING..................30                C1FC      11      17       1   .rodata1    
+     STRING..................31                C20D      11      17       1   .rodata1    
+     STRING..................32                C21E      11      17       1   .rodata1    
+     STRING..................33                C22F      11      17       1   .rodata1    
+     STRING.......CYC........34                C240      11      17       1   .rodata1    
+     STRING.ES.Group.13.MENU.35                C251      11      17       1   .rodata1    
+     STRING..ModCon.Nb..36                     C262       C      12       1   .rodata1    
+     STRING..Version...V1.0..37                C26E      11      17       1   .rodata1    
+     STRING..Debug......38                     C27F       C      12       1   .rodata1    
+     STRING.ON..39                             C28B       4       4       1   .rodata1    
+     STRING.OFF.40                             C28F       4       4       1   .rodata1    
+     STRING..Prot.Mode..41                     C293       C      12       1   .rodata1    
+     STRING.ASYN..42                           C29F       6       6       1   .rodata1    
+     STRING.SYNC..43                           C2A5       6       6       1   .rodata1    
+     STRING..................44                C2AB      11      17       1   .rodata1    
+     STRING..................45                C2BC      11      17       1   .rodata1    
+     STRING.......MENU.......46                C2CD      11      17       1   .rodata1    
+     STRING...Settings.MENU..47                C2DE      11      17       1   .rodata1    
+     STRING..ModCon.Settings.48                C2EF      11      17       1   .rodata1    
+     STRING..LCD.Settings....49                C300      11      17       1   .rodata1    
+     STRING..................50                C311      11      17       1   .rodata1    
+     STRING..................51                C322      11      17       1   .rodata1    
+     STRING..................52                C333      11      17       1   .rodata1    
+     STRING..................53                C344      11      17       1   .rodata1    
+     STRING.UP.DN....SEL.BAK.54                C355      11      17       1   .rodata1    
+     STRING..LCD.Settings....55                C366      11      17       1   .rodata1    
+     STRING..Contrast.....56                   C377       E      14       1   .rodata1    
+     STRING..Backlight....57                   C385       E      14       1   .rodata1    
+     STRING.ON..58                             C393       4       4       1   .rodata1    
+     STRING.OFF.59                             C397       4       4       1   .rodata1    
+     STRING..................60                C39B      11      17       1   .rodata1    
+     STRING..................61                C3AC      11      17       1   .rodata1    
+     STRING..................62                C3BD      11      17       1   .rodata1    
+     STRING..................63                C3CE      11      17       1   .rodata1    
+     STRING.UP.DN.CY.SEL.SAV.64                C3DF      11      17       1   .rodata1    
+     STRING..ModCon.Settings.65                C3F0      11      17       1   .rodata1    
+     STRING..ModCon.Nb..66                     C401       C      12       1   .rodata1    
+     STRING..Prot.Mode..67                     C40D       C      12       1   .rodata1    
+     STRING.ASYN..68                           C419       6       6       1   .rodata1    
+     STRING.SYNC..69                           C41F       6       6       1   .rodata1    
+     STRING..Debug......70                     C425       C      12       1   .rodata1    
+     STRING.ON..71                             C431       4       4       1   .rodata1    
+     STRING.OFF.72                             C435       4       4       1   .rodata1    
+     STRING..................73                C439      11      17       1   .rodata1    
+     STRING..................74                C44A      11      17       1   .rodata1    
+     STRING..................75                C45B      11      17       1   .rodata1    
+     STRING.UP.DN.CY.SEL.SAV.76                C46C      11      17       1   .rodata1    
+     STRING.ES.Group.13.MENU.77                C47D      11      17       1   .rodata1    
+     STRING..................78                C48E      11      17       1   .rodata1    
+     STRING.Would.you.like...79                C49F      11      17       1   .rodata1    
+     STRING.to.save.your.....80                C4B0      11      17       1   .rodata1    
+     STRING.changes..........81                C4C1      11      17       1   .rodata1    
+     STRING..................82                C4D2      11      17       1   .rodata1    
+     STRING..................83                C4E3      11      17       1   .rodata1    
+     STRING.YES...........NO.84                C4F4      11      17       1   .rodata1    
+     STRING.ES.Group.13.MENU.85                C505      11      17       1   .rodata1    
+     STRING..................86                C516      11      17       1   .rodata1    
+     STRING.Your.new.setting.87                C527      11      17       1   .rodata1    
+     STRING.have.been.saved..88                C538      11      17       1   .rodata1    
+     STRING.successfully.....89                C549      11      17       1   .rodata1    
+     STRING..................90                C55A      11      17       1   .rodata1    
+     STRING..................91                C56B      11      17       1   .rodata1    
+     STRING..................92                C57C      11      17       1   .rodata1    
+     STRING..Contrast.....93                   C58D       E      14       1   .rodata1    
+     STRING..Backlight....94                   C59B       E      14       1   .rodata1    
+     STRING.ON..95                             C5A9       4       4       1   .rodata1    
+     STRING.OFF.96                             C5AD       4       4       1   .rodata1    
+     STRING..ModCon.Nb..97                     C5B1       C      12       1   .rodata1    
+     STRING..Prot.Mode..98                     C5BD       C      12       1   .rodata1    
+     STRING.ASYN..99                           C5C9       6       6       1   .rodata1    
+     STRING.SYNC..100                          C5CF       6       6       1   .rodata1    
+     STRING..Debug......101                    C5D5       C      12       1   .rodata1    
+     STRING.ON..102                            C5E1       4       4       1   .rodata1    
+     STRING.OFF.103                            C5E5       4       4       1   .rodata1    
+     STRING..................1                 C5E9      11      17       1   .rodata1    
+     main                                      C5FA      E0     224       1   .text       
+     HandlePacket                              C6DA      82     130       1   .text       
+     MCCNT_ISR                                 C75C      43      67       1   .text       
+     HandleStartupPacket                       C79F      44      68       2   .text       
+     HandleSpecialPacket                       C7E3      24      36       2   .text       
+     HandleNumberPacket                        C807      2A      42       2   .text       
+     HandleModePacket                          C831      15      21       2   .text       
+     HandleEEPROMProgramPacket                 C846      25      37       1   .text       
+     HandleEEPROMGetPacket                     C86B      2A      42       1   .text       
+     HandleTimePacket                          C895      12      18       2   .text       
+     HandlePacketModePacket                    C8A7      28      40       1   .text       
+     HandleAnalogValPacket                     C8CF      1F      31       3   .text       
+     Analog_Setup                              C8EE      3E      62       1   .text       
+     Analog_Get                                C92C      C6     198       2   .text       
+     Clock_Setup                               C9F2      25      37       1   .text       
+     Clock_Update                              CA17      C1     193       1   .text       
+     CRG_SetupPLL                              CAD8      51      81       1   .text       
+     CRG_SetupCOP                              CB29      21      33       1   .text       
+     CRG_SetupRTI                              CB4A       E      14       1   .text       
+     CRG_RTI_ISR                               CB58      24      36       1   .text       
+     EEPROM_Setup                              CB7C      C5     197       2   .text       
+     EEPROM_Write32                            CC41      50      80       1   .text       
+     EEPROM_Write16                            CC91      43      67      13   .text       
+     EEPROM_Write8                             CCD4      2C      44       1   .text       
+     EEPROM_Erase                              CD00      36      54       1   .text       
+     Write                                     CD36      37      55       5   .text       
+     FIFO_Init                                 CD6D       F      15       2   .text       
+     FIFO_Put                                  CD7C      3F      63       2   .text       
+     FIFO_Get                                  CDBB      3D      61       2   .text       
+     Packet_Setup                              CDF8      1B      27       1   .text       
+     Packet_Put                                CE13      4B      75      10   .text       
+     Packet_Get                                CE5E      6A     106       1   .text       
+     shuffleFSM                                CEC8      27      39       1   .text       
+     SCI_Setup                                 CEEF      5E      94       1   .text       
+     SCI_InChar                                CF4D       E      14       1   .text       
+     SCI_OutChar                               CF5B      15      21       5   .text       
+     SendData                                  CF70      30      48       2   .text       
+     SCI0_ISR                                  CFA0      10      16       1   .text       
+     TIE7_ISR                                  CFB0      13      19       1   .text       
+     SPI_Setup                                 CFC3      67     103       1   .text       
+     SPI_ExchangeChar                          D02A      15      21       3   .text       
+     Timer_SetupPeriodicTimer                  D03F      2E      46       1   .text       
+     Timer_PeriodicTimerEnable                 D06D      1B      27       1   .text       
+     Timer_Setup                               D088      22      34       1   .text       
+     Timer_Init                                D0AA     3A7     935      19   .text       
+     Timer_Enable                              D451      80     128       3   .text       
+     Timer_Enabled                             D4D1      62      98       1   .text       
+     Timer_Set                                 D533      37      55       3   .text       
+     HMI_Setup                                 D56A      7F     127       1   .text       
+     HMI_Update                                D5E9       6       6       1   .text       
+     TIE5_ISR                                  D5EF      5C      92       1   .text       
+     CreateMenu                                D64B     331     817      80   .text       
+     HandleButtonPress                         D97C     11F     287      20   .text       
+     CycleData                                 DA9B     103     259       4   .text       
+     RevertSettings                            DB9E      24      36       2   .text       
+     MoveUp                                    DBC2      21      33       1   .text       
+     MoveDown                                  DBE3      21      33       1   .text       
+     SelectItem                                DC04      4A      74       1   .text       
+     Buttons_Get                               DC4E      10      16       1   .text       
+     LCD_Setup                                 DC5E      78     120       1   .text       
+     LCD_Clear                                 DCD6      31      49       2   .text       
+     LCD_ClearLine                             DD07       9       9      11   .text       
+     LCD_CursorHome                            DD10       8       8       1   .text       
+     LCD_TextHome                              DD18       D      13       1   .text       
+     LCD_TextArea                              DD25       C      12       1   .text       
+     LCD_OutChar                               DD31      14      20       5   .text       
+     LCD_OutInteger                            DD45      95     149       6   .text       
+     LCD_OutString                             DDDA      1F      31      36   .text       
+     LCD_SetFunction                           DDF9      2C      44       3   .text       
+     LCD_SetLine                               DE25       B      11      18   .text       
+     LCD_SetCursor                             DE30       B      11       4   .text       
+     SetCGAddress                              DE3B      12      18       2   .text       
+     SetRAMAddress                             DE4D      12      18       4   .text       
+     StatusCheck                               DE5F      1E      30       1   .text       
+     WaitForReady                              DE7D       7       7       2   .text       
+     WriteCommand                              DE84      1A      26       8   .text       
+     WriteData                                 DE9E      1A      26       9   .text       
+     _BDIVMODU                                 DEB8       A      10       2   RUNTIME     
+     _LSHRU                                    DEC2      11      17       1   RUNTIME     
+     _LCMP                                     DED3      19      25       1   RUNTIME     
+     _lDivMod                                  DEEC      BE     190       3   RUNTIME     
+     _LDIVU                                    DFAA       E      14       4   RUNTIME     
+     _NEG_P                                    DFB8       F      15       4   RUNTIME     
+     _LDIVS                                    DFC7      35      53       1   RUNTIME     
+     _CASE_CHECKED                             DFFC       B      11       3   RUNTIME     
+     _CASE_CHECKED_BYTE                        E007      14      20      21   RUNTIME     
+     _CASE_SEARCH_8_BYTE                       E01B      1A      26       3   RUNTIME     
      _Vector_26                                FFCA       2       2       0   .abs_section_ffca
      _Vector_20                                FFD6       2       2       0   .abs_section_ffd6
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
@@ -1844,6 +1821,11 @@ OBJECT LIST SORTED BY ADDRESS
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
+main.c.o:
+  HandleTestModePacket HandleTariffPacket HandleTime1Packet HandleTime2Packet 
+  HandlePowerPacket HandleEnergyPacket HandleCostPacket HandleFrequencyPacket 
+  HandleVoltageRMSPacket HandleCurrentRMSPacket HandlePowerFactorPacket 
+  HandleAcceleratePacket 
 rtshc12.c.o (ansisi.lib):
   _BSHL _BSHRS _BSHRU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRS _LADD _LSUB 
   _LAND _LOR _LXOR _LCMP_P _LCMP_PP _LNEG _LCOM _LINC _LDEC _LMUL _LMULU16x32 
@@ -1859,8 +1841,11 @@ NOT USED VARIABLES
 main.c.o:
   MAJOR_VERSION MINOR_VERSION CMD_STARTUP CMD_EEPROM_PROG CMD_EEPROM_GET 
   CMD_SPECIAL CMD_MODCON_NB CMD_MODCON_MODE CMD_MODCON_TIME CMD_MODCON_PMODE 
-  CMD_ANALOG_VALUE baudRate busClk oscClk refClk watchDogRate NB_MSB NB_LSB 
-  prescaleRate modulusCount Periodic_Delay copReset copEnd Packet_Mode 
+  CMD_ANALOG_VALUE CMD_TEST_MODE CMD_TARIFF CMD_TIME1 CMD_TIME2 CMD_POWER 
+  CMD_ENERGY CMD_COST CMD_FREQUENCY CMD_VOLTAGE_RMS CMD_CURRENT_RMS 
+  CMD_POWER_FACTOR CMD_ACCELERATE baudRate busClk oscClk refClk watchDogRate 
+  NB_MSB NB_LSB prescaleRate modulusCount Periodic_Delay copReset copEnd 
+  Packet_Mode 
 rtshc12.c.o (ansisi.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 analog.c.o:
@@ -1876,7 +1861,7 @@ LCD.c.o:
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xE0B9 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xE035 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1890,6 +1875,7 @@ main                      USES Packet_Setup EEPROM_Setup CRG_SetupPLL
                                 Timer_PeriodicTimerEnable Timer_SetupPeriodicTimer Timer_Init Timer_Set 
                                 HMI_Setup _DDRE _PORTE HandleStartupPacket _ARMCOP 
                                 Packet_Get HandlePacket Clock_Update HandleTimePacket 
+                                HMI_Update 
 HandlePacket              USES Packet _CASE_CHECKED_BYTE HandleStartupPacket 
                                 HandleSpecialPacket HandleNumberPacket HandleModePacket 
                                 HandleEEPROMProgramPacket HandleEEPROMGetPacket HandlePacketModePacket 
@@ -1909,9 +1895,12 @@ HandlePacketModePacket    USES Packet EEPROM_Write16 Packet_Put
 HandleAnalogValPacket     USES Analog_Input Packet_Put 
 Analog_Setup              USES NbAnalogInputs NbAnalogOutputs SPI_Setup _PTH 
 Analog_Get                USES _PTH SPI_ExchangeChar Analog_Input 
-Clock_Setup               USES Clock_Minutes Clock_Seconds CRG_SetupRTI 
+Clock_Setup               USES Clock_Minutes Clock_Seconds Clock_MicroSeconds 
+                                System_Days System_Hours System_Minutes System_Seconds 
+                                CRG_SetupRTI 
 Clock_Update              USES _LDIVS Clock_MicroSeconds _LCMP _PORTE 
-                                Clock_Seconds Clock_Minutes 
+                                System_Seconds Clock_Seconds System_Minutes Clock_Minutes 
+                                System_Hours System_Days 
 CRG_SetupPLL              USES _LDIVU _SYNR _REFDV _PLLCTL _CRGFLG _CLKSEL 
 CRG_SetupCOP              USES _COPCTL 
 CRG_SetupRTI              USES _RTICTL _CRGINT 
@@ -1949,73 +1938,66 @@ Timer_Set                 USES _CASE_CHECKED_BYTE _TC0 _TC1 _TC2 _TC3 _TC4
 HMI_Setup                 USES _DDRK _DDRAB LCD_Setup Y CreateMenu 
                                 TempContrast _PORTAB TempBacklight TempMCNb TempProtMode 
                                 TempDebug Interval ItemSelected LCDPrevState 
+HMI_Update                USES LCDCurrentState CreateMenu 
 TIE5_ISR                  USES _TFLG1 PBState Buttons_Get PrevPBState 
-                                LCDPrevState HandleButtonPress Interval CreateMenu 
-                                RevertSettings 
+                                LCDPrevState HandleButtonPress Interval RevertSettings 
 CreateMenu                USES LCD_SetCursor X Y LCD_Clear _CASE_CHECKED 
-                                CreateMenu STRING..................1 
-                                STRING..................2 STRING..................3 
-                                STRING..................4 STRING..................5 
+                                CreateMenu LCD_SetFunction STRING.METERING.TIME....1 
+                                System_Days LCD_OutInteger STRING...2 LCD_OutString 
+                                System_Hours STRING...3 System_Minutes STRING...4 
+                                System_Seconds STRING..................5 
                                 STRING..................6 STRING..................7 
-                                STRING.....DORMANT......8 STRING.METERING.TIME....9 
-                                STRING..................10 STRING..................11 
+                                STRING..................8 STRING..................9 
+                                STRING.......CYC........10 STRING.AVERAGE.POWER....11 
                                 STRING..................12 STRING..................13 
                                 STRING..................14 STRING..................15 
-                                STRING.......CYC........16 STRING.AVERAGE.POWER....17 
-                                STRING..................18 STRING..................19 
+                                STRING..................16 STRING..................17 
+                                STRING.......CYC........18 STRING.TOTAL.ENERGY....19 
                                 STRING..................20 STRING..................21 
                                 STRING..................22 STRING..................23 
-                                STRING.......CYC........24 STRING.TOTAL.ENERGY....25 
-                                STRING..................26 STRING..................27 
+                                STRING..................24 STRING..................25 
+                                STRING.......CYC........26 STRING.TOTAL.COST.......27 
                                 STRING..................28 STRING..................29 
                                 STRING..................30 STRING..................31 
-                                STRING.......CYC........32 STRING.TOTAL.COST.......33 
-                                STRING..................34 STRING..................35 
-                                STRING..................36 STRING..................37 
-                                STRING..................38 STRING..................39 
-                                STRING.......CYC........40 STRING.ES.Group.13.MENU.41 
-                                STRING..ModCon.Nb..42 STRING..Version...V1.0..43 
-                                STRING..Debug......44 LCD_OutString STRING.ON..45 STRING.OFF.46 
-                                LCD_SetLine STRING..Prot.Mode..47 STRING.ASYN..48 
-                                STRING.SYNC..49 STRING..................50 
-                                STRING..................51 STRING.......MENU.......52 
-                                STRING...Settings.MENU..53 STRING..ModCon.Settings.54 
-                                STRING..LCD.Settings....55 STRING..................56 
-                                STRING..................57 STRING..................58 
-                                STRING..................59 STRING.UP.DN....SEL.BAK.60 
-                                STRING..LCD.Settings....61 STRING..Contrast.....62 
-                                STRING..Backlight....63 _PORTAB STRING.ON..64 STRING.OFF.65 
-                                STRING..................66 STRING..................67 
-                                STRING..................68 STRING..................69 
-                                STRING.UP.DN.CY.SEL.SAV.70 STRING..ModCon.Settings.71 
-                                STRING..ModCon.Nb..72 STRING..Prot.Mode..73 STRING.ASYN..74 
-                                STRING.SYNC..75 STRING..Debug......76 STRING.ON..77 
-                                STRING.OFF.78 STRING..................79 
-                                STRING..................80 STRING..................81 
-                                STRING.UP.DN.CY.SEL.SAV.82 STRING.ES.Group.13.MENU.83 
-                                STRING..................84 STRING.Would.you.like...85 
-                                STRING.to.save.your.....86 STRING.changes..........87 
-                                STRING..................88 STRING..................89 
-                                STRING.YES...........NO.90 STRING.ES.Group.13.MENU.91 
-                                STRING..................92 STRING.Your.new.setting.93 
-                                STRING.have.been.saved..94 STRING.successfully.....95 
-                                STRING..................96 STRING..................97 
-                                STRING..................98 STRING.ES.Group.13.MENU.99 
-                                STRING..................100 STRING.Your.new.setting.101 
-                                STRING.have.not.been....102 STRING.saved............103 
-                                STRING.successfully.....104 STRING..................105 
-                                STRING..................106 LCDPrevState LCD_OutInteger 
-HandleButtonPress         USES _CASE_CHECKED_BYTE _CASE_SEARCH_8_BYTE MoveUp 
-                                MoveDown CycleData SelectItem TempDebug EEPROM_Write16 
-                                TempProtMode TempMCNb TempBacklight _PORTAB TempContrast 
-                                LCD_SetFunction CreateMenu RevertSettings 
+                                STRING..................32 STRING..................33 
+                                STRING.......CYC........34 LCDCurrentState STRING.ES.Group.13.MENU.35 
+                                STRING..ModCon.Nb..36 STRING..Version...V1.0..37 
+                                STRING..Debug......38 STRING.ON..39 STRING.OFF.40 LCD_SetLine 
+                                STRING..Prot.Mode..41 STRING.ASYN..42 STRING.SYNC..43 
+                                STRING..................44 STRING..................45 
+                                STRING.......MENU.......46 STRING...Settings.MENU..47 
+                                STRING..ModCon.Settings.48 STRING..LCD.Settings....49 
+                                STRING..................50 STRING..................51 
+                                STRING..................52 STRING..................53 
+                                STRING.UP.DN....SEL.BAK.54 STRING..LCD.Settings....55 
+                                STRING..Contrast.....56 STRING..Backlight....57 _PORTAB STRING.ON..58 
+                                STRING.OFF.59 STRING..................60 
+                                STRING..................61 STRING..................62 
+                                STRING..................63 STRING.UP.DN.CY.SEL.SAV.64 
+                                STRING..ModCon.Settings.65 STRING..ModCon.Nb..66 STRING..Prot.Mode..67 
+                                STRING.ASYN..68 STRING.SYNC..69 STRING..Debug......70 
+                                STRING.ON..71 STRING.OFF.72 STRING..................73 
+                                STRING..................74 STRING..................75 
+                                STRING.UP.DN.CY.SEL.SAV.76 STRING.ES.Group.13.MENU.77 
+                                STRING..................78 STRING.Would.you.like...79 
+                                STRING.to.save.your.....80 STRING.changes..........81 
+                                STRING..................82 STRING..................83 
+                                STRING.YES...........NO.84 STRING.ES.Group.13.MENU.85 
+                                STRING..................86 STRING.Your.new.setting.87 
+                                STRING.have.been.saved..88 STRING.successfully.....89 
+                                STRING..................90 STRING..................91 
+                                STRING..................92 LCDPrevState 
+HandleButtonPress         USES _CASE_CHECKED HandleButtonPress 
+                                _CASE_SEARCH_8_BYTE MoveUp MoveDown CycleData SelectItem TempDebug 
+                                EEPROM_Write16 TempProtMode TempMCNb TempBacklight _PORTAB 
+                                TempContrast LCD_SetFunction CreateMenu RevertSettings 
 CycleData                 USES Y ItemSelected CycleData 
-                                STRING..Contrast.....107 LCD_OutString TempContrast LCD_OutInteger 
-                                TempBacklight STRING..Backlight....108 STRING.ON..109 
-                                STRING.OFF.110 STRING..ModCon.Nb..111 TempMCNb TempProtMode 
-                                STRING..Prot.Mode..112 STRING.ASYN..113 STRING.SYNC..114 TempDebug 
-                                LCD_ClearLine LCD_SetLine STRING..Debug......115 
-                                STRING.ON..116 STRING.OFF.117 
+                                STRING..Contrast.....93 LCD_OutString TempContrast LCD_OutInteger 
+                                TempBacklight STRING..Backlight....94 STRING.ON..95 
+                                STRING.OFF.96 STRING..ModCon.Nb..97 TempMCNb TempProtMode 
+                                STRING..Prot.Mode..98 STRING.ASYN..99 STRING.SYNC..100 TempDebug 
+                                LCD_ClearLine LCD_SetLine STRING..Debug......101 
+                                STRING.ON..102 STRING.OFF.103 
 RevertSettings            USES TempContrast _PORTAB TempBacklight TempMCNb 
                                 TempProtMode TempDebug 
 MoveUp                    USES ItemSelected Y X LCD_SetCursor 
@@ -2186,16 +2168,18 @@ DEPENDENCY TREE
  |  |     |  
  |  |     +- _CASE_CHECKED        (see above)
  |  |     |  
+ |  |     +- LCD_SetFunction      (see above)
+ |  |     |  
+ |  |     +- LCD_OutInteger      
+ |  |     |  | 
+ |  |     |  +- _BDIVMODU           
+ |  |     |  |    
+ |  |     |  +- LCD_OutChar          (see above)
+ |  |     |     
  |  |     +- LCD_OutString        (see above)
  |  |     |  
  |  |     +- LCD_SetLine          (see above)
- |  |     |  
- |  |     +- LCD_OutInteger      
- |  |        | 
- |  |        +- _BDIVMODU           
- |  |        |    
- |  |        +- LCD_OutChar          (see above)
- |  |           
+ |  |        
  |  +- HandleStartupPacket 
  |  |  | 
  |  |  +- Packet_Put          
@@ -2289,7 +2273,11 @@ DEPENDENCY TREE
  |  |  +- _LCMP               
  |  |       
  |  +- HandleTimePacket     (see above)
- |     
+ |  |  
+ |  +- HMI_Update          
+ |     | 
+ |     +- CreateMenu           (see above)
+ |        
  +- _Startup            
     | 
     +- Init                
@@ -2332,7 +2320,7 @@ DEPENDENCY TREE
     |    
     +- HandleButtonPress   
     |  | 
-    |  +- _CASE_CHECKED_BYTE   (see above)
+    |  +- _CASE_CHECKED        (see above)
     |  |  
     |  +- _CASE_SEARCH_8_BYTE 
     |  |    
@@ -2368,8 +2356,6 @@ DEPENDENCY TREE
     |  |  
     |  +- RevertSettings      
     |       
-    +- CreateMenu           (see above)
-    |  
     +- RevertSettings       (see above)
        
 *********************************************************************************************
@@ -2378,6 +2364,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 12
-Total size of all blocks to be downloaded: 8391
+Number of blocks to be downloaded: 13
+Total size of all blocks to be downloaded: 8259
 
