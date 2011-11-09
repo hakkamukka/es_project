@@ -18,6 +18,15 @@
 
 #include <mc9s12a256.h>     /* derivative information */
 
+extern System_Days;
+extern System_Hours;
+extern System_Minutes;
+extern System_Seconds;
+
+extern Clock_Seconds;
+extern Clock_Minutes;
+extern Clock_MicroSeconds;
+
 
 
 // ----------------------------------------
@@ -31,6 +40,18 @@
 // Conditions:
 //   none
 void HMI_Setup(void);
+
+// ----------------------------------------
+// HMI_Update
+// 
+// Updates the HMI
+// Input:
+//   none
+// Output:
+//   none
+// Conditions:
+//   none
+void HMI_Update(void);
 
 // ----------------------------------------
 // CreateMenu

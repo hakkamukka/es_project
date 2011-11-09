@@ -21,7 +21,7 @@ static UINT8   TempProtMode;
 static UINT8   TempDebug;
 static UINT32  Interval;
 
-static TLCDState LCDPrevState;
+static TLCDState LCDPrevState, LCDCurrentState;
 static TButtonInputs PBState, PrevPBState;
 
 // ----------------------------------------
@@ -65,7 +65,7 @@ void HMI_Setup(void)
   
   LCD_Setup();
   X, Y = 0;
-  CreateMenu(DefaultMenu);
+  CreateMenu(DormantMenu);
   
   TempContrast   = (UINT8)sLCDContrast;
   TempBacklight  = LCDF_BACKLIGHT;
@@ -75,7 +75,22 @@ void HMI_Setup(void)
   Interval       = 0;
 
   ItemSelected = bFALSE;
-  LCDPrevState = DefaultMenu;
+  LCDPrevState = DormantMenu;
+}
+
+// ----------------------------------------
+// HMI_Update
+// 
+// Updates the HMI
+// Input:
+//   none
+// Output:
+//   none
+// Conditions:
+//   none
+void HMI_Update(void)
+{
+  CreateMenu(LCDCurrentState);
 }
 
 // ----------------------------------------
@@ -108,7 +123,8 @@ void interrupt 13 TIE5_ISR(void)
   PrevPBState = PBState;
   if (Interval >= 240000000) // 10 Seconds: 240Million Clock Cycles
   {
-    CreateMenu(DefaultMenu);
+    //CreateMenu(DormantMenu);
+    //CreateMenu(DefaultMenu);
     RevertSettings();
     Interval = 0;
   }
@@ -134,8 +150,10 @@ void CreateMenu(TLCDState menu)
   
   switch(menu)
   {
-    case DormantDisplay:
-      LCD_SetLine(0);
+    case DormantMenu:
+      LCD_SetFunction(BacklightOFF, (UINT8)sLCDContrast);
+      LCD_SetCursor(-1, -1);
+      /*LCD_SetLine(0);
       LCD_OutString("                ");
       LCD_SetLine(1);
       LCD_OutString("                ");
@@ -150,14 +168,21 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(6);
       LCD_OutString("                ");
       LCD_SetLine(7);
-      LCD_OutString("    DORMANT     ");
+      LCD_OutString("    DORMANT     ");*/
+      LCDCurrentState = DormantMenu;
     break;
     
     case MeteringTimeMenu:
       LCD_SetLine(0);
       LCD_OutString("METERING TIME   ");
       LCD_SetLine(1);
-      LCD_OutString("                ");
+      LCD_OutInteger(System_Days);
+      LCD_OutString(":");
+      LCD_OutInteger(System_Hours);
+      LCD_OutString(":");
+      LCD_OutInteger(System_Minutes);
+      LCD_OutString(":");
+      LCD_OutInteger(System_Seconds);
       LCD_SetLine(2);
       LCD_OutString("                ");
       LCD_SetLine(3);
@@ -169,7 +194,8 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(6);
       LCD_OutString("                ");
       LCD_SetLine(7);
-      LCD_OutString("      CYC       ");    
+      LCD_OutString("      CYC       ");
+      LCDCurrentState = MeteringTimeMenu;    
     break;
         
     case AveragePowerMenu:
@@ -188,7 +214,8 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(6);
       LCD_OutString("                ");
       LCD_SetLine(7);
-      LCD_OutString("      CYC       ");    
+      LCD_OutString("      CYC       ");
+      LCDCurrentState = AveragePowerMenu;    
     break;
         
     case TotalEnergyMenu:
@@ -208,6 +235,7 @@ void CreateMenu(TLCDState menu)
       LCD_OutString("                ");
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
+      LCDCurrentState = TotalEnergyMenu;
     break;
         
     case TotalCostMenu:
@@ -227,8 +255,10 @@ void CreateMenu(TLCDState menu)
       LCD_OutString("                ");
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
+      LCDCurrentState = TotalCostMenu;
     break;
-      
+    
+    /////////////////////////////////////////////////////  
     
     case DefaultMenu:
       LCD_SetLine(0);
@@ -368,29 +398,8 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(7);
       LCD_OutString("                ");
     break;
-    
-    case SaveUnsuccessfulMenu:
-      LCD_SetLine(0);
-      LCD_OutString("ES Group 13 MENU");
-      LCD_SetLine(1);
-      LCD_OutString("                ");
-      LCD_SetLine(2);
-      LCD_OutString("Your new setting");
-      LCD_SetLine(3);
-      LCD_OutString("have not been   ");
-      LCD_SetLine(4);
-      LCD_OutString("saved           ");
-      LCD_SetLine(5);
-      LCD_OutString("successfully    ");
-      LCD_SetLine(6);
-      LCD_OutString("                ");
-      LCD_SetLine(7);
-      LCD_OutString("                ");
-    break;
-    
-    
   }
-  LCDPrevState = menu;
+  LCDPrevState = LCDCurrentState;
 }
 
 // ----------------------------------------
@@ -408,6 +417,53 @@ void HandleButtonPress(TButtonInputs PBState, TLCDState LCDState)
 {
   switch(LCDState)
   {
+    case DormantMenu:
+      switch(PBState)
+      {
+        case Button2:
+          CreateMenu(MeteringTimeMenu);
+        break;
+      }
+    break;
+    
+    case MeteringTimeMenu:
+      switch(PBState)
+      {
+        case Button2:
+          CreateMenu(AveragePowerMenu);
+        break;
+      }
+    break;
+    
+    case AveragePowerMenu:
+      switch(PBState)
+      {
+        case Button2:
+          CreateMenu(TotalEnergyMenu);
+        break;
+      }
+    break;
+    
+    case TotalEnergyMenu:
+      switch(PBState)
+      {
+        case Button2:
+          CreateMenu(TotalCostMenu);
+        break;
+      }
+    break;
+    
+    case TotalCostMenu:
+      switch(PBState)
+      {
+        case Button2:
+          CreateMenu(MeteringTimeMenu);
+        break;
+      }
+    break;
+    
+    /////////////////////////////////////////////////
+    
     case DefaultMenu:
       switch(PBState)
       {

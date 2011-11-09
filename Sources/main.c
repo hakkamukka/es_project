@@ -82,6 +82,7 @@ void main(void)
     {
       // && (Debug == 1) )
       (void)HandleTimePacket();
+      (void)HMI_Update();
       
       //(void)HandleAnalogValPacket(Ch1);
     }
@@ -373,3 +374,148 @@ BOOL HandleAnalogValPacket(TChannelNb channelNb)
   // cmd, channel, lsb, msb
   return Packet_Put(CMD_ANALOG_VALUE, (UINT8)channelNb, Analog_Input[channelNb].Value.s.Lo, Analog_Input[channelNb].Value.s.Hi);  
 }
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleTestModePacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleTariffPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleTime1Packet(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleTime2Packet(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandlePowerPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleEnergyPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleCostPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleFrequencyPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleVoltageRMSPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleCurrentRMSPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandlePowerFactorPacket(void)
+{
+  
+}
+
+//---------------------------------
+//  HandleTestModePacket
+//
+//  
+//  Input: none
+//  Output: none
+//  Conditions: none
+BOOL HandleAcceleratePacket(void)
+{
+  
+}
+

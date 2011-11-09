@@ -262,7 +262,7 @@ void LCD_OutInteger(UINT16 const data)
   if (number >= 0)
   {
     single = (UINT8)number;
-    single |= 0x30;   
+    single |= 0x30; 
   }
     
   if (hundred == 0 && thousand != 0)

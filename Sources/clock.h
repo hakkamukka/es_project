@@ -16,6 +16,11 @@
 extern UINT8 Clock_Seconds, Clock_Minutes;
 extern UINT32 Clock_MicroSeconds;
 
+extern TUINT16 System_Seconds;
+extern TUINT16 System_Minutes;
+extern TUINT16 System_Hours;
+extern TUINT16 System_Days;
+
 // ----------------------------------------
 // Clock_Setup
 // 

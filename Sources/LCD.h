@@ -37,7 +37,7 @@ typedef enum
   SaveSuccessfulMenu,
   SaveUnsuccessfulMenu,
   
-  DormantDisplay,
+  DormantMenu,
   MeteringTimeMenu,
   AveragePowerMenu,
   TotalEnergyMenu,

@@ -56,6 +56,21 @@ const UINT8 CMD_MODCON_TIME   = 0x0c;
 const UINT8 CMD_MODCON_PMODE  = 0x0a;
 const UINT8 CMD_ANALOG_VALUE  = 0x50;
 
+const UINT8 CMD_TEST_MODE     = 0x10;
+const UINT8 CMD_TARIFF        = 0x11;
+const UINT8 CMD_TIME1         = 0x12;
+const UINT8 CMD_TIME2         = 0x13;
+const UINT8 CMD_POWER         = 0x14;
+const UINT8 CMD_ENERGY        = 0x15;
+const UINT8 CMD_COST          = 0x16;
+
+const UINT8 CMD_FREQUENCY     = 0x17;
+const UINT8 CMD_VOLTAGE_RMS   = 0x18;
+const UINT8 CMD_CURRENT_RMS   = 0x19;
+const UINT8 CMD_POWER_FACTOR  = 0x1A;
+
+const UINT8 CMD_ACCELERATE    = 0x1B;
+
 // ----------------------------------------
 // Clock/rate setups
 const UINT32 baudRate         = 115200;
@@ -106,6 +121,11 @@ UINT8 Clock_Seconds;
 UINT8 Clock_Minutes;
 UINT32 Clock_MicroSeconds;
 
+TUINT16 System_Seconds;
+TUINT16 System_Minutes;
+TUINT16 System_Hours;
+TUINT16 System_Days;
+
 // ----------------------------------------
 //  Function Prototypes
 void main(void);
@@ -119,3 +139,22 @@ BOOL HandleEEPROMGetPacket(void);
 BOOL HandleTimePacket(void);
 BOOL HandlePacketModePacket(void);
 BOOL HandleAnalogValPacket(TChannelNb channelNb);
+
+//Project Basic Prototypes
+BOOL HandleTestModePacket(void);
+BOOL HandleTariffPacket(void);
+BOOL HandleTime1Packet(void);
+BOOL HandleTime2Packet(void);
+BOOL HandlePowerPacket(void);
+BOOL HandleEnergyPacket(void);
+BOOL HandleCostPacket(void);
+
+//Project Intermediate Prototypes
+BOOL HandleFrequencyPacket(void);
+BOOL HandleVoltageRMSPacket(void);
+BOOL HandleCurrentRMSPacket(void);
+BOOL HandlePowerFactorPacket(void);
+
+//Project Misc Prototypes
+BOOL HandleAcceleratePacket(void);
+
