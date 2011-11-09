@@ -113,42 +113,21 @@ void LCD_Clear(void)
 {  
   SetRAMAddress(0);
   
-  /*WaitForReady();
+  UINT8 i;
   
-  LCD_SetLine(0);
-  LCD_OutString("                ");
-  LCD_SetLine(1);
-  LCD_OutString("                ");
+  for (i = 0; i < 8; i++)
+  {
+    LCD_ClearLine(i); 
+  }
   
-  WaitForReady();
-  
-  LCD_SetLine(2);
-  LCD_OutString("                ");
-  LCD_SetLine(3);
-  LCD_OutString("                ");
-  
-  WaitForReady();
-  
-  LCD_SetLine(4);
-  LCD_OutString("                ");
-  LCD_SetLine(5);
-  LCD_OutString("                ");
-  
-  WaitForReady();
-  
-  LCD_SetLine(6);
-  LCD_OutString("                ");
-  LCD_SetLine(7);
-  LCD_OutString("                ");*/
-  
-  LCD_ClearLine(0);
+  /*LCD_ClearLine(0);
   LCD_ClearLine(1);
   LCD_ClearLine(2);
   LCD_ClearLine(3);
   LCD_ClearLine(4);
   LCD_ClearLine(5);
   LCD_ClearLine(6);
-  LCD_ClearLine(7);
+  LCD_ClearLine(7);*/
   
   SetRAMAddress(0);  
 }
