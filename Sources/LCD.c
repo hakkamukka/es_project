@@ -113,21 +113,21 @@ void LCD_Clear(void)
 {  
   SetRAMAddress(0);
   
-  UINT8 i;
+  /*INT8 i;
   
   for (i = 0; i < 8; i++)
   {
     LCD_ClearLine(i); 
-  }
+  }*/
   
-  /*LCD_ClearLine(0);
+  LCD_ClearLine(0);
   LCD_ClearLine(1);
   LCD_ClearLine(2);
   LCD_ClearLine(3);
   LCD_ClearLine(4);
   LCD_ClearLine(5);
   LCD_ClearLine(6);
-  LCD_ClearLine(7);*/
+  LCD_ClearLine(7);
   
   SetRAMAddress(0);  
 }

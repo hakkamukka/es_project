@@ -134,6 +134,102 @@ void CreateMenu(TLCDState menu)
   
   switch(menu)
   {
+    case DormantDisplay:
+      LCD_SetLine(0);
+      LCD_OutString("                ");
+      LCD_SetLine(1);
+      LCD_OutString("                ");
+      LCD_SetLine(2);
+      LCD_OutString("                ");
+      LCD_SetLine(3);
+      LCD_OutString("                ");
+      LCD_SetLine(4);
+      LCD_OutString("                ");
+      LCD_SetLine(5);
+      LCD_OutString("                ");
+      LCD_SetLine(6);
+      LCD_OutString("                ");
+      LCD_SetLine(7);
+      LCD_OutString("    DORMANT     ");
+    break;
+    
+    case MeteringTimeMenu:
+      LCD_SetLine(0);
+      LCD_OutString("METERING TIME   ");
+      LCD_SetLine(1);
+      LCD_OutString("                ");
+      LCD_SetLine(2);
+      LCD_OutString("                ");
+      LCD_SetLine(3);
+      LCD_OutString("                ");
+      LCD_SetLine(4);
+      LCD_OutString("                ");
+      LCD_SetLine(5);
+      LCD_OutString("                ");
+      LCD_SetLine(6);
+      LCD_OutString("                ");
+      LCD_SetLine(7);
+      LCD_OutString("      CYC       ");    
+    break;
+        
+    case AveragePowerMenu:
+      LCD_SetLine(0);
+      LCD_OutString("AVERAGE POWER   ");
+      LCD_SetLine(1);
+      LCD_OutString("                ");
+      LCD_SetLine(2);
+      LCD_OutString("                ");
+      LCD_SetLine(3);
+      LCD_OutString("                ");
+      LCD_SetLine(4);
+      LCD_OutString("                ");
+      LCD_SetLine(5);
+      LCD_OutString("                ");
+      LCD_SetLine(6);
+      LCD_OutString("                ");
+      LCD_SetLine(7);
+      LCD_OutString("      CYC       ");    
+    break;
+        
+    case TotalEnergyMenu:
+      LCD_SetLine(0);
+      LCD_OutString("TOTAL ENERGY   ");
+      LCD_SetLine(1);
+      LCD_OutString("                ");
+      LCD_SetLine(2);
+      LCD_OutString("                ");
+      LCD_SetLine(3);
+      LCD_OutString("                ");
+      LCD_SetLine(4);
+      LCD_OutString("                ");
+      LCD_SetLine(5);
+      LCD_OutString("                ");
+      LCD_SetLine(6);
+      LCD_OutString("                ");
+      LCD_SetLine(7);
+      LCD_OutString("      CYC       ");
+    break;
+        
+    case TotalCostMenu:
+      LCD_SetLine(0);
+      LCD_OutString("TOTAL COST      ");
+      LCD_SetLine(1);
+      LCD_OutString("                ");
+      LCD_SetLine(2);
+      LCD_OutString("                ");
+      LCD_SetLine(3);
+      LCD_OutString("                ");
+      LCD_SetLine(4);
+      LCD_OutString("                ");
+      LCD_SetLine(5);
+      LCD_OutString("                ");
+      LCD_SetLine(6);
+      LCD_OutString("                ");
+      LCD_SetLine(7);
+      LCD_OutString("      CYC       ");
+    break;
+      
+    
     case DefaultMenu:
       LCD_SetLine(0);
       //////////////"                "//

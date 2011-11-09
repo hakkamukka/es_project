@@ -35,7 +35,13 @@ typedef enum
   LCDSetMenu,
   ModConSetMenu,
   SaveSuccessfulMenu,
-  SaveUnsuccessfulMenu
+  SaveUnsuccessfulMenu,
+  
+  DormantDisplay,
+  MeteringTimeMenu,
+  AveragePowerMenu,
+  TotalEnergyMenu,
+  TotalCostMenu
 } TLCDState;
 
 // Line Y position (row)
