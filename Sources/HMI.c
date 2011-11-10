@@ -176,13 +176,19 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(0);
       LCD_OutString("METERING TIME   ");
       LCD_SetLine(1);
-      LCD_OutInteger(System_Days);
-      LCD_OutString(":");
-      LCD_OutInteger(System_Hours);
-      LCD_OutString(":");
-      LCD_OutInteger(System_Minutes);
-      LCD_OutString(":");
-      LCD_OutInteger(System_Seconds);
+      if (System_Days.s.Lo >= 99)
+        LCD_OutString("xx:xx:xx:xx");
+      else
+      {
+        LCD_OutInteger(System_Days.s.Lo);
+        LCD_OutString(":");
+        LCD_OutInteger(System_Hours.s.Lo);
+        LCD_OutString(":");
+        LCD_OutInteger(System_Minutes.s.Lo);
+        LCD_OutString(":");
+        LCD_OutInteger(System_Seconds.s.Lo);
+      }
+      
       LCD_SetLine(2);
       LCD_OutString("                ");
       LCD_SetLine(3);

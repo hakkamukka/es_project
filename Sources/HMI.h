@@ -18,10 +18,10 @@
 
 #include <mc9s12a256.h>     /* derivative information */
 
-extern System_Days;
-extern System_Hours;
-extern System_Minutes;
-extern System_Seconds;
+extern TUINT16 System_Seconds;
+extern TUINT16 System_Minutes;
+extern TUINT16 System_Hours;
+extern TUINT16 System_Days;
 
 extern Clock_Seconds;
 extern Clock_Minutes;
