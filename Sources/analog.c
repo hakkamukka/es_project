@@ -35,7 +35,7 @@ void Analog_Setup(const UINT32 busClk)
   aSPISetup.baudRate          = 1000000;                    // 1 Mbit
   
   NbAnalogInputs.l            = 2;
-  NbAnalogOutputs.l           = 0;
+  NbAnalogOutputs.l           = 2;
   
   SPI_Setup(&aSPISetup, busClk);
   

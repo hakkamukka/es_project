@@ -15,6 +15,7 @@
 #include "LCD.h"
 #include "buttons.h"
 #include "EEPROM.h"
+#include "calc.h"
 
 #include <mc9s12a256.h>     /* derivative information */
 

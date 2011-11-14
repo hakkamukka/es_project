@@ -67,6 +67,25 @@ BOOL EEPROM_Setup(const UINT32 oscClk, const UINT32 busClk)
   if (sLCDContrast == 0xFFFF)
     (void)EEPROM_Write16(&sLCDContrast, 50);
   
+  if (sTariffNumber == 0xFFFF)
+    (void)EEPROM_Write16(&sTariffNumber, 1);
+  
+  if (sTariff1ToUPeak == 0xFFFF)
+    (void)EEPROM_Write16(&sTariff1ToUPeak, 22235);
+  
+  if (sTariff1ToUShoulder == 0xFFFF)
+    (void)EEPROM_Write16(&sTariff1ToUShoulder, 4400);
+  
+  if (sTariff1ToUOffPeak == 0xFFFF)
+    (void)EEPROM_Write16(&sTariff1ToUOffPeak, 2109);
+  
+  if (sTariff2NonToU == 0xFFFF)
+    (void)EEPROM_Write16(&sTariff2NonToU, 1713);
+  
+  if (sTariff3NonToU == 0xFFFF)
+    (void)EEPROM_Write16(&sTariff3NonToU, 4100);
+  
+  
   return bTRUE;
 }
 

@@ -136,6 +136,39 @@ void HandlePacket(void)
     //case CMD_ANALOG_VALUE:
          //Packet_CommandOK = HandleAnalogValPacket();
          //break;
+    case CMD_TEST_MODE:
+         Packet_CommandOK = HandleTestModePacket();
+         break;
+    case CMD_TARIFF:
+         Packet_CommandOK = HandleTariffPacket();
+         break;
+    case CMD_TIME1:
+         Packet_CommandOK = HandleTime1Packet();
+         break;
+    case CMD_TIME2:
+         Packet_CommandOK = HandleTime2Packet();
+         break;
+    case CMD_POWER:
+         Packet_CommandOK = HandlePowerPacket();
+         break;
+    case CMD_ENERGY:
+         Packet_CommandOK = HandleEnergyPacket();
+         break;
+    case CMD_COST:
+         Packet_CommandOK = HandleCostPacket();
+         break;
+    case CMD_FREQUENCY:
+         Packet_CommandOK = HandleFrequencyPacket();
+         break;
+    case CMD_VOLTAGE_RMS:
+         Packet_CommandOK = HandleVoltageRMSPacket();
+         break;
+    case CMD_CURRENT_RMS:
+         Packet_CommandOK = HandleCurrentRMSPacket();
+         break;
+    case CMD_POWER_FACTOR:
+         Packet_CommandOK = HandlePowerFactorPacket();
+         break;     
     default:
          //(void)HandleErrorPacket();
          Packet_CommandOK = bFALSE;
@@ -384,11 +417,19 @@ BOOL HandleAnalogValPacket(TChannelNb channelNb)
 //  Conditions: none
 BOOL HandleTestModePacket(void)
 {
-  
+  switch (Packet_Parameter1)
+  {
+    case 1:
+      return Packet_Put( CMD_TEST_MODE, (UINT8)Debug, 0, 0 );
+      break;
+    case 2:
+      return EEPROM_Write8(&Debug, Packet_Parameter2);    
+      break;
+  }
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleTariffPacket
 //
 //  
 //  Input: none
@@ -396,11 +437,11 @@ BOOL HandleTestModePacket(void)
 //  Conditions: none
 BOOL HandleTariffPacket(void)
 {
-  
+  return EEPROM_Write8(&sTariffNumber, Packet_Parameter1);
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleTime1Packet
 //
 //  
 //  Input: none
@@ -408,11 +449,19 @@ BOOL HandleTariffPacket(void)
 //  Conditions: none
 BOOL HandleTime1Packet(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+    case 1:
+      return Packet_Put(CMD_TIME1, System_Seconds.s.Lo, System_Minutes.s.Lo, 0);
+      break;
+    case 2:
+      
+      break;
+  }
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleTime2Packet
 //
 //  
 //  Input: none
@@ -420,11 +469,19 @@ BOOL HandleTime1Packet(void)
 //  Conditions: none
 BOOL HandleTime2Packet(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+    case 1:
+      return Packet_Put(CMD_TIME2, System_Hours.s.Lo, System_Days.s.Lo, 0);
+      break;
+    case 2:
+      
+      break;
+  }
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandlePowerPacket
 //
 //  
 //  Input: none
@@ -432,11 +489,19 @@ BOOL HandleTime2Packet(void)
 //  Conditions: none
 BOOL HandlePowerPacket(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+    case 1:
+       
+      break;
+    case 2:
+      
+      break;
+  }
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleEnergyPacket
 //
 //  
 //  Input: none
@@ -444,11 +509,19 @@ BOOL HandlePowerPacket(void)
 //  Conditions: none
 BOOL HandleEnergyPacket(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+    case 1:
+      
+      break;
+    case 2:
+      
+      break;
+  }
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleCostPacket
 //
 //  
 //  Input: none
@@ -456,11 +529,19 @@ BOOL HandleEnergyPacket(void)
 //  Conditions: none
 BOOL HandleCostPacket(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+    case 1:
+      
+      break;
+    case 2:
+      
+      break;
+  }
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleFrequencyPacket
 //
 //  
 //  Input: none
@@ -472,7 +553,7 @@ BOOL HandleFrequencyPacket(void)
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleVoltageRMSPacket
 //
 //  
 //  Input: none
@@ -484,7 +565,7 @@ BOOL HandleVoltageRMSPacket(void)
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleCurrentRMSPacket
 //
 //  
 //  Input: none
@@ -496,7 +577,7 @@ BOOL HandleCurrentRMSPacket(void)
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandlePowerFactorPacket
 //
 //  
 //  Input: none
@@ -508,7 +589,7 @@ BOOL HandlePowerFactorPacket(void)
 }
 
 //---------------------------------
-//  HandleTestModePacket
+//  HandleAcceleratePacket
 //
 //  
 //  Input: none

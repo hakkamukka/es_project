@@ -198,7 +198,7 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(5);
       LCD_OutString("                ");
       LCD_SetLine(6);
-      LCD_OutString("                ");
+      Calculate_TariffQNotation(sTariff1ToUPeak);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = MeteringTimeMenu;    
@@ -218,7 +218,7 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(5);
       LCD_OutString("                ");
       LCD_SetLine(6);
-      LCD_OutString("                ");
+      Calculate_TariffQNotation(sTariff1ToUPeak);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = AveragePowerMenu;    
@@ -238,7 +238,7 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(5);
       LCD_OutString("                ");
       LCD_SetLine(6);
-      LCD_OutString("                ");
+      Calculate_TariffQNotation(sTariff1ToUPeak);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = TotalEnergyMenu;
@@ -258,7 +258,7 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(5);
       LCD_OutString("                ");
       LCD_SetLine(6);
-      LCD_OutString("                ");
+      Calculate_TariffQNotation(sTariff1ToUPeak);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = TotalCostMenu;

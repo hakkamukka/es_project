@@ -26,24 +26,47 @@
 // ----------------------------------------
 
 // ModCon parameters
-#define    sModConNb        _EW(0x400)
-#define    sModConMode      _EW(0x402)
-#define    sControlMode     _EW(0x404)          
-#define    sNbAnalogInputs  _EW(0x406)
-#define    sNbAnalogOutputs _EW(0x408)
+#define     sModConNb         _EW(0x400)
+#define     sModConMode       _EW(0x402)
+#define     sControlMode      _EW(0x404)          
+#define     sNbAnalogInputs   _EW(0x406)
+#define     sNbAnalogOutputs  _EW(0x408)
 
 // Time periods
-#define    sAnalogPeriod    _EW(0x410)
-#define    sPacketPeriod    _EW(0x412)
+#define     sAnalogPeriod     _EW(0x410)
+#define     sPacketPeriod     _EW(0x412)
 
 // Debug flag
-#define    Debug            _EW(0x420)
+#define     Debug             _EW(0x420)
 
 // EEPROM erased flag
-#define    EEPROMErasedFlag _EW(0x430)
+#define     EEPROMErasedFlag  _EW(0x430)
 
 // LCD settings
-#define    sLCDContrast     _EW(0x440)
+#define     sLCDContrast      _EW(0x440)
+
+//Tariff settings
+#define     sTariffNumber         _EW(0x450)
+#define     sTariff1ToUPeak       _EW(0x460)
+#define     sTariff1ToUShoulder   _EW(0x470)
+#define     sTariff1ToUOffPeak    _EW(0x480)
+
+#define     sTariff2NonToU        _EW(0x490)
+
+#define     sTariff3NonToU        _EW(0x500)
+
+/*
+#define     sTariff2Peak          _EL(0x450)
+#define     sTariff2Shoulder      _EL(0x460)
+#define     sTariff2OffPeak       _EL(0x470)
+
+#define     sTariff3Peak          _EL(0x450)
+#define     sTariff3Shoulder      _EL(0x460)
+#define     sTariff3OffPeak       _EL(0x470)
+*/
+
+
+
                             
 // ----------------------------------------
 // EEPROM_Setup
