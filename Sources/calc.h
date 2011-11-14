@@ -49,4 +49,6 @@ UINT8 Calculate_RMS(const INT16 * const voltage, const UINT16 guess);
 //  
 void Calculate_TariffQNotation(const UINT16 value);
 
+
+
 #endif
