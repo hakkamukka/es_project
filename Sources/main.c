@@ -54,6 +54,8 @@ void main(void)
   Timer_Set(TIMER_Ch7, Timer_Ch7_Delay);
   HMI_Setup();
   
+  Digital_Setup();
+  
   if (bSetupState)
   {
     // Turn on LED D11 to show success.
@@ -83,6 +85,7 @@ void main(void)
       // && (Debug == 1) )
       (void)HandleTimePacket();
       (void)HMI_Update();
+      (void)DEM_CurrentTariff();
       
       //(void)HandleAnalogValPacket(Ch1);
     }
@@ -419,11 +422,11 @@ BOOL HandleTestModePacket(void)
 {
   switch (Packet_Parameter1)
   {
-    case 1:
+    case 0:
       return Packet_Put( CMD_TEST_MODE, (UINT8)Debug, 0, 0 );
       break;
-    case 2:
-      return EEPROM_Write8(&Debug, Packet_Parameter2);    
+    case 1:
+      return EEPROM_Write16(&Debug, Packet_Parameter2);    
       break;
   }
 }
@@ -437,7 +440,7 @@ BOOL HandleTestModePacket(void)
 //  Conditions: none
 BOOL HandleTariffPacket(void)
 {
-  return EEPROM_Write8(&sTariffNumber, Packet_Parameter1);
+  return EEPROM_Write16(&sTariffNumber, Packet_Parameter1);
 }
 
 //---------------------------------
@@ -451,10 +454,10 @@ BOOL HandleTime1Packet(void)
 {
   switch(Packet_Parameter1)
   {
-    case 1:
+    case 0:
       return Packet_Put(CMD_TIME1, System_Seconds.s.Lo, System_Minutes.s.Lo, 0);
       break;
-    case 2:
+    case 1:
       
       break;
   }
@@ -471,10 +474,10 @@ BOOL HandleTime2Packet(void)
 {
   switch(Packet_Parameter1)
   {
-    case 1:
+    case 0:
       return Packet_Put(CMD_TIME2, System_Hours.s.Lo, System_Days.s.Lo, 0);
       break;
-    case 2:
+    case 1:
       
       break;
   }
@@ -491,10 +494,10 @@ BOOL HandlePowerPacket(void)
 {
   switch(Packet_Parameter1)
   {
-    case 1:
+    case 0:
        
       break;
-    case 2:
+    case 1:
       
       break;
   }
@@ -511,10 +514,10 @@ BOOL HandleEnergyPacket(void)
 {
   switch(Packet_Parameter1)
   {
-    case 1:
+    case 0:
       
       break;
-    case 2:
+    case 1:
       
       break;
   }
@@ -531,10 +534,10 @@ BOOL HandleCostPacket(void)
 {
   switch(Packet_Parameter1)
   {
-    case 1:
+    case 0:
       
       break;
-    case 2:
+    case 1:
       
       break;
   }

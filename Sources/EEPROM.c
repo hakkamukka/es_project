@@ -85,6 +85,9 @@ BOOL EEPROM_Setup(const UINT32 oscClk, const UINT32 busClk)
   if (sTariff3NonToU == 0xFFFF)
     (void)EEPROM_Write16(&sTariff3NonToU, 4100);
   
+  if (sCurrentTariffRate == 0xFFFF)
+  	(void)EEPROM_Write16(&sCurrentTariffRate, sTariff1ToUPeak);
+  
   
   return bTRUE;
 }

@@ -9,9 +9,10 @@
 #define CLOCK_H
 
 // new types
+#include <mc9s12a256.h>     /* derivative information */
 #include "types.h"
 #include "CRG.h"
-#include <mc9s12a256.h>     /* derivative information */
+//#include "EEPROM.h"
 
 extern UINT8 Clock_Seconds, Clock_Minutes;
 extern UINT32 Clock_MicroSeconds;

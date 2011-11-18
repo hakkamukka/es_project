@@ -71,41 +71,61 @@ BOOL Clock_Update(void)
   else
     PORTE_BIT7 = 1;                // OFF
   
-  // Update the clock  
+  // Update the clock   
   if (Clock_MicroSeconds >= second)
   {
-    System_Seconds.s.Lo++;
-    
+    if (Debug)
+    	System_Hours.s.Lo++;
+    else
+    {
+    	System_Seconds.s.Lo++;
+    }
     Clock_Seconds++;
     Clock_MicroSeconds -= second;  // 1 second has passed
     //Clock_MicroSeconds = 0;
     
-    if (Clock_Seconds >= minute)
+    if (Debug)
     {
-      System_Minutes.s.Lo++;
-      System_Seconds.s.Lo -= minute;
-      
-      Clock_Minutes++;               // 1 minute has passed
-      Clock_Seconds -= minute;
-      
-      if (System_Minutes.s.Lo >= hour)
-      {
-        System_Hours.s.Lo++;
-        System_Minutes.s.Lo -= hour;
-        
-        if (System_Hours.s.Lo >= day)
-        {
-          System_Days.s.Lo++;
-          System_Hours.s.Lo -= day;
-        }
-      }
+    	if (System_Hours.s.Lo >= day)
+  		{
+  			System_Days.s.Lo++;
+  			System_Hours.s.Lo -= day;
+  		}
+  		
+  		if (Clock_Seconds >= minute)
+  		{
+  			Clock_Minutes++;               // 1 minute has passed
+	      Clock_Seconds -= minute;
+  		}
     }
-    
+    else
+    {
+    	if (Clock_Seconds >= minute)
+	    {
+	      System_Minutes.s.Lo++;
+	      System_Seconds.s.Lo -= minute;
+	      
+	      Clock_Minutes++;               // 1 minute has passed
+	      Clock_Seconds -= minute;
+	      
+	      if (System_Minutes.s.Lo >= hour)
+	      {
+	        System_Hours.s.Lo++;
+	        System_Minutes.s.Lo -= hour;
+	        
+	        if (System_Hours.s.Lo >= day)
+	        {
+	          System_Days.s.Lo++;
+	          System_Hours.s.Lo -= day;
+	        }
+	      }
+	    }
+    }
     // Restore state
-    ExitCritical();
-    return bTRUE;
+	  ExitCritical();
+	  return bTRUE;  
   }
-  
+
   // Restore state
   ExitCritical();
   return bFALSE;  

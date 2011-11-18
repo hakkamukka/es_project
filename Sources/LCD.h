@@ -191,6 +191,19 @@ void LCD_OutInteger(const UINT16 data);
 void LCD_OutString(INT8 * const data);
 
 // ----------------------------------------
+// LCD_QNotation
+// 
+// Writes numbers based on the quotient value
+// Input:
+//   data is the binary value to write to the LCD
+// 	 q is the n value of mQn
+// Output:
+//   none
+// Conditions:
+//   LCD_Setup() has been run
+void LCD_QNotation(const UINT16 data, const INT8 mQ);
+
+// ----------------------------------------
 // LCD_SetFunction
 // 
 // Sets the function of the LCD

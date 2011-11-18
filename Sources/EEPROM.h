@@ -55,6 +55,8 @@
 
 #define     sTariff3NonToU        _EW(0x500)
 
+#define			sCurrentTariffRate		_EW(0x510)
+
 /*
 #define     sTariff2Peak          _EL(0x450)
 #define     sTariff2Shoulder      _EL(0x460)

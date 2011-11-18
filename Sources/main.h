@@ -39,6 +39,16 @@
 // SPI Connection to ADC
 #include "SPI.h"
 
+#include "HMI.h"
+
+#include "calc.h"
+
+#include "DEM.h"
+
+#include "digital.h"
+
+
+
 // Version number
 const UINT8 MAJOR_VERSION   = 1;
 const UINT8 MINOR_VERSION   = 0;
@@ -88,7 +98,7 @@ const UINT8 modulusCount      = 15;//0x0F;
 
 // ----------------------------------------
 // Timer Delays
-const UINT16 Periodic_Delay   = 10000; // 10ms
+const UINT16 Periodic_Delay   = 20000; // 10ms
 const UINT16 Timer_Ch7_Delay  = 2000;  // We need enough delay for 10 bits.
 /*
 5339

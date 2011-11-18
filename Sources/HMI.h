@@ -24,9 +24,9 @@ extern TUINT16 System_Minutes;
 extern TUINT16 System_Hours;
 extern TUINT16 System_Days;
 
-extern Clock_Seconds;
-extern Clock_Minutes;
-extern Clock_MicroSeconds;
+extern UINT8 Clock_Seconds;
+extern UINT8 Clock_Minutes;
+extern UINT32 Clock_MicroSeconds;
 
 
 

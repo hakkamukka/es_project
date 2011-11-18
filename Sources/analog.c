@@ -84,7 +84,7 @@ void Analog_Get(const TChannelNb channelNb)
   conversionResult.s.Hi &= 0x0F;                      // Mask out the NULL bit [? ? ? 0 B11 B10 B09 B08]
   
   // 0 High (Inverted) for no transfer
-  PTH_PTH4 = 0;
+  PTH_PTH4 = 0; 
   PTH_PTH5 = 0;
   PTH_PTH6 = 0;
   

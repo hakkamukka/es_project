@@ -14,7 +14,9 @@ static UINT8 const SET_TEXT_HOME       = 0b01000000;
 static UINT8 const SET_TEXTAREA        = 0b01000001;
 static UINT8 const SET_CURSOR          = 0b00100001;
 static UINT8 const SET_RAM             = 0b00100100;
-static UINT8 const DISPLAY_MODE        = 0b10010111; // Text on, Graphics off, Curson on, Blink on
+static UINT8 const DISPLAY_MODE				 = 0b10010100; //Text on, graphics off, cursor off, blink off
+//static UINT8 const DISPLAY_MODE        = 0b10010111; // Text on, Graphics off, Curson on, Blink on
+
 // 100101XX
 // 1001XX11
 static UINT8 const TXT_GFX_ON          = 0b10011000;
@@ -295,6 +297,72 @@ void LCD_OutString(INT8 * const data)
     if ( !LCD_OutChar(data[i]) )
       break;
   }
+}
+
+// ----------------------------------------
+// LCD_QNotation
+// 
+// Writes numbers based on the quotient value
+// Input:
+//   data is the binary value to write to the LCD
+// 	 q is the n value of mQn
+// Output:
+//   none
+// Conditions:
+//   LCD_Setup() has been run
+void LCD_QNotation(const UINT16 data, const INT8 mQ)
+{
+	UINT16 number;
+  UINT8 tenthousand, thousand, hundred, ten, single;
+  tenthousand = 0;
+  thousand    = 0;
+  hundred     = 0;
+  ten         = 0;
+  single      = 0;
+  number      = data;   
+  
+  if (number >= 10000)
+  {
+    tenthousand = (UINT8)(number / 10000);
+    number -= (tenthousand * 10000);
+    tenthousand |= 0x30;
+  }
+  if (number >= 1000) 
+  {
+    thousand = (UINT8)(number / 1000);
+    number -= (thousand * 1000);
+    thousand |= 0x30;
+  }
+  if (number >= 100)                       //if number is 300, 300/100 = 3
+  {
+    hundred = (UINT8)(number / 100);
+    number -= (hundred * 100);             //wtfuggles?!?!?! must be a better way...
+    hundred |= 0x30;                       //convert to ASCII by ORing with 0x30  
+  }
+  if (number >= 10)
+  {
+    ten = (UINT8)(number / 10);
+    number -= (ten * 10);
+    ten |= 0x30;  
+  }
+  if (number >= 0)
+  {
+    single = (UINT8)number;
+    single |= 0x30; 
+  }
+  
+  if (hundred == 0 && thousand != 0)
+    hundred |= 0x30;
+  
+  if (ten == 0 && hundred != 0)
+    ten |= 0x30;
+  
+  (void)LCD_OutChar(tenthousand);
+  (void)LCD_OutChar(thousand);
+  (void)LCD_OutChar('.');
+  (void)LCD_OutChar(hundred);
+  (void)LCD_OutChar(ten);
+  (void)LCD_OutChar(single);
 }
 
 // ----------------------------------------

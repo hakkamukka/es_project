@@ -10,6 +10,39 @@
 
 static const INT8 N_VALUE = 16; // 2^4 for n
 
+TINT16 Calculate_Power(TChannelNb voltage, TChannelNb current)
+{
+	//Analog_Input[voltage].value.l;
+	//Analog_Input[current].value.l;
+	
+	
+}
+
+UINT16 Calculate_TotalEnergy(void)
+{
+	
+}
+
+UINT16 Calculate_TotalCost(void)
+{
+	
+}
+
+UINT16 Calculate_MultiplyQNotation(const TINT16 value1, const TINT16 value2, const UINT8 q)
+{
+	
+}
+
+// ----------------------------------------
+//Calculate_TariffQNotation
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
 void Calculate_TariffQNotation(UINT16 const data)
 {
   UINT16 number;
@@ -64,3 +97,45 @@ void Calculate_TariffQNotation(UINT16 const data)
   (void)LCD_OutChar(ten);
   (void)LCD_OutChar(single);
 }
+
+// ----------------------------------------
+//Calcualte_Square_Root
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+UINT32 Calculate_Square_Root(const UINT32 number, const UINT32 guess)
+{
+	
+}
+
+// ----------------------------------------
+//Calculate_RMS
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+UINT8 Calculate_RMS(const INT16 * const voltage, const UINT16 guess)
+{
+	
+}
+
+// ----------------------------------------
+//Calculate_QNotation
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//
+

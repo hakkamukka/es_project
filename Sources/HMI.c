@@ -173,6 +173,7 @@ void CreateMenu(TLCDState menu)
     break;
     
     case MeteringTimeMenu:
+    	LCD_SetFunction(BacklightON, (UINT8)sLCDContrast);
       LCD_SetLine(0);
       LCD_OutString("METERING TIME   ");
       LCD_SetLine(1);
@@ -196,9 +197,14 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(4);
       LCD_OutString("                ");
       LCD_SetLine(5);
-      LCD_OutString("                ");
+      LCD_OutString("Test Mode: ");
+      if (Debug)
+        LCD_OutString("ON ");
+      else
+        LCD_OutString("OFF");
       LCD_SetLine(6);
-      Calculate_TariffQNotation(sTariff1ToUPeak);
+      LCD_OutString("Rate: ");
+      Calculate_TariffQNotation(sCurrentTariffRate);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = MeteringTimeMenu;    
@@ -216,9 +222,14 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(4);
       LCD_OutString("                ");
       LCD_SetLine(5);
-      LCD_OutString("                ");
+      LCD_OutString("Test Mode: ");
+      if (Debug)
+        LCD_OutString("ON ");
+      else
+        LCD_OutString("OFF");
       LCD_SetLine(6);
-      Calculate_TariffQNotation(sTariff1ToUPeak);
+      LCD_OutString("Rate: ");
+      Calculate_TariffQNotation(sCurrentTariffRate);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = AveragePowerMenu;    
@@ -236,9 +247,14 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(4);
       LCD_OutString("                ");
       LCD_SetLine(5);
-      LCD_OutString("                ");
+      LCD_OutString("Test Mode: ");
+      if (Debug)
+        LCD_OutString("ON ");
+      else
+        LCD_OutString("OFF");
       LCD_SetLine(6);
-      Calculate_TariffQNotation(sTariff1ToUPeak);
+      LCD_OutString("Rate: ");
+      //LCD_QNotation(sCurrentTariffRate);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = TotalEnergyMenu;
@@ -256,9 +272,14 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(4);
       LCD_OutString("                ");
       LCD_SetLine(5);
-      LCD_OutString("                ");
+      LCD_OutString("Test Mode: ");
+      if (Debug)
+        LCD_OutString("ON ");
+      else
+        LCD_OutString("OFF");
       LCD_SetLine(6);
-      Calculate_TariffQNotation(sTariff1ToUPeak);
+      LCD_OutString("Rate: ");
+      Calculate_TariffQNotation(sCurrentTariffRate);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = TotalCostMenu;

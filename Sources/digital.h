@@ -13,8 +13,18 @@
 #include "types.h"
 #include "SPI.h"
 
+#define PWMWAVEFORMS 8
+#define PWMDUTYPER_SIZE 2
+
+
+typedef struct
+{
+	UINT8 currentRow, currentColumn;
+	//UINT16 PWMDutyPer[PWMWAVEFORMS] [PWMDUTYPER_SIZE];
+} TPWM;
+
 // ----------------------------------------
-//Digital_PWMInit
+//Digital_Setup
 //Description: 
 //Input:
 //  
@@ -22,7 +32,18 @@
 //  
 //Conditions:
 //  
-void Digital_PWMInit(void);
+void Digital_Setup(void);
+
+// ----------------------------------------
+//Digital_Init
+//Description: 
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+void Digital_Init(TPWM * const PWM);
 
 // ----------------------------------------
 //Digital_Put

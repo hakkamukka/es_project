@@ -8,8 +8,10 @@
 
 #include "digital.h"
 
+static TPWM PWM;
+
 // ----------------------------------------
-//Digital_PWMInit
+//Digital_Setup
 //Description: 
 //Input:
 //  
@@ -17,7 +19,7 @@
 //  
 //Conditions:
 //  
-void Digital_PWMInit(void)
+void Digital_Setup(void)
 {
   PWME_PWME0 = 1;         //PWM channel 0 enabled
   PWME_PWME1 = 1;         //PWM channel 1 enabled
@@ -32,6 +34,51 @@ void Digital_PWMInit(void)
   
   PWMCAE_CAE0 = 0;        //PWM channel 0 left aligned output mode
   PWMCAE_CAE1 = 0;        //PWM channel 1 left aligned output mode
+  
+  Digital_Init(&PWM);
+}
+
+// ----------------------------------------
+//Digital_Init
+//Description: 
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+void Digital_Init(TPWM * const PWM)
+{
+	UINT16 PWM_ARRAY [PWMWAVEFORMS] [PWMDUTYPER_SIZE] =
+	{
+		{
+			0, 256
+		},
+		{
+			64, 256
+		},
+		{
+			128, 256
+		},
+		{
+			192, 256
+		},
+		{
+			256, 256
+		},
+		{
+			192, 256
+		},
+		{
+			128, 256
+		},
+		{
+			64, 256
+		}
+	};
+
+	PWM->currentRow 		= 0;
+	PWM->currentColumn	= 0;
 }
 
 // ----------------------------------------
