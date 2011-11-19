@@ -49,6 +49,17 @@ typedef union
   } s;
 } TUINT32;
 
+// Union to efficiently access hi and lo parts of a long integer
+typedef union
+{
+  INT32 l;
+  struct
+  {
+    INT16 Hi;
+    INT16 Lo;
+  } s;
+} TINT32;
+
 // Macros for critical sections
 #define EnterCritical() { asm pshc; asm sei; asm leas 1,sp; }
 #define ExitCritical()  { asm leas -1,sp; asm pulc; }

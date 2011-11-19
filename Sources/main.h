@@ -47,8 +47,6 @@
 
 #include "digital.h"
 
-
-
 // Version number
 const UINT8 MAJOR_VERSION   = 1;
 const UINT8 MINOR_VERSION   = 0;
@@ -127,6 +125,157 @@ TAnalogInput Analog_Input[NB_INPUT_CHANNELS];
 TUINT16 NbAnalogInputs;
 TUINT16 NbAnalogOutputs;
 
+UINT8 PWM_MAIN_LOOP = 0;
+//UINT16 DEM_VoltageTable[16];
+//UINT16 DEM_CurrentTable[16];
+
+const static INT16 DEM_VoltageTable[] = 
+{
+	0,
+	201,
+	399,
+	594,
+	783,
+	965,
+	1137,
+	1299,
+	1447,
+	1582,
+	1702,
+	1805,
+	1891,
+	1959,
+	2008,
+	2037,
+	2047,
+	2037,
+	2008,
+	1959,
+	1891,
+	1805,
+	1702,
+	1582,
+	1447,
+	1299,
+	1137,
+	965,
+	783,
+	594,
+	399,
+	201,
+	0,
+	-201,
+	-399,
+	-594,
+	-783,
+	-965,
+	-1137,
+	-1299,
+	-1447,
+	-1582,
+	-1702,
+	-1805,
+	-1891,
+	-1959,
+	-2008,
+	-2037,
+	-2047,
+	-2037,
+	-2008,
+	-1959,
+	-1891,
+	-1805,
+	-1702,
+	-1582,
+	-1447,
+	-1299,
+	-1137,
+	-965,
+	-783,
+	-594,
+	-399,
+	-201
+};
+
+const static INT16 DEM_CurrentTable[] = 
+{
+	0,
+	201,
+	399,
+	594,
+	783,
+	965,
+	1137,
+	1299,
+	1447,
+	1582,
+	1702,
+	1805,
+	1891,
+	1959,
+	2008,
+	2037,
+	2047,
+	2037,
+	2008,
+	1959,
+	1891,
+	1805,
+	1702,
+	1582,
+	1447,
+	1299,
+	1137,
+	965,
+	783,
+	594,
+	399,
+	201,
+	0,
+	-201,
+	-399,
+	-594,
+	-783,
+	-965,
+	-1137,
+	-1299,
+	-1447,
+	-1582,
+	-1702,
+	-1805,
+	-1891,
+	-1959,
+	-2008,
+	-2037,
+	-2047,
+	-2037,
+	-2008,
+	-1959,
+	-1891,
+	-1805,
+	-1702,
+	-1582,
+	-1447,
+	-1299,
+	-1137,
+	-965,
+	-783,
+	-594,
+	-399,
+	-201
+};
+/*
+const static UINT16 DEM_VoltageTable[] = 
+{
+	1331, 1840, 2272, 2561, 2662, 2561, 2272, 1840, 1331, 822, 390, 101, 0, 101, 390, 822
+};
+
+const static UINT16 DEM_CurrentTable[] = 
+{
+	1155, 1597, 1972, 2222, 2310, 2222, 1972, 1597, 1155, 713, 338, 88, 0, 88, 338, 713
+};
+*/
+
 UINT8 Clock_Seconds;
 UINT8 Clock_Minutes;
 UINT32 Clock_MicroSeconds;
@@ -135,6 +284,10 @@ TUINT16 System_Seconds;
 TUINT16 System_Minutes;
 TUINT16 System_Hours;
 TUINT16 System_Days;
+
+TUINT16 Total_Energy;
+TUINT16 Average_Power;
+TUINT16 Total_Cost;
 
 // ----------------------------------------
 //  Function Prototypes

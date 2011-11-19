@@ -8,10 +8,30 @@
 
 #include "DEM.h"
 
-static TINT16 PowerArray[POWER_ARRAY_SIZE];
+//#define PWM_SAMPLE_SIZE 16
+
+static TUINT16 PowerArray[POWER_ARRAY_SIZE];
 static TChannelNb voltage = Ch1;
 static TChannelNb current = Ch2;
 
+TUINT16 totalPower, averagePower;
+
+// ----------------------------------------
+//DEM_Setup
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//
+void DEM_Setup()
+{
+	Total_Energy.l 			= 0;
+	Average_Power.l 		= 0;
+	Total_Cost.l 				= 0;
+}
 
 // ----------------------------------------
 //DEM_AveragePower
@@ -26,12 +46,19 @@ static TChannelNb current = Ch2;
 void DEM_AveragePower()
 {
 	INT8 i;
+	
 	for (i = 0; i < POWER_ARRAY_SIZE; i++)
 	{
 		PowerArray[i + 1] = PowerArray[i];
 	}
-	PowerArray[0] = Calculate_Power(voltage, current);
+	PowerArray[0].l = Calculate_Power(voltage, current).l;
 	
+	for (i = 0; i < POWER_ARRAY_SIZE; i++)
+	{
+		totalPower.l = totalPower.l + PowerArray[i].l;
+	}
+	
+	averagePower.l = totalPower.l / POWER_ARRAY_SIZE;
 	
 }
 

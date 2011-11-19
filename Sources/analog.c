@@ -115,6 +115,48 @@ void Analog_Get(const TChannelNb channelNb)
 	
 	Analog_Input[channelNb].Value.l = medianArray[1];
 
-   
+}
+
+// ----------------------------------------
+//Analog_Put
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+void Analog_Put(const TChannelNb channelNb, TINT16 data)
+{
+	TUINT16 conversionResult;
+  //INT16 medianArray[3];
+  //INT16 x, y, temp;
+  INT8 txByte, txByte2;
   
+ 	// 4 Low (Inverted) for transfer
+  PTH_PTH4 = 0; 
+  PTH_PTH5 = 0;
+  PTH_PTH6 = 1;
+  
+  if (channelNb == Ch1)
+  {
+  	txByte = 0x30;
+  }
+  else if (channelNb == Ch2)
+  {
+  	txByte = 0x70;
+  }
+  
+  txByte |= (data.s.Hi & 0x0F);
+  SPI_ExchangeChar(txByte, &conversionResult.s.Hi);
+  txByte2 = data.s.Lo;
+  SPI_ExchangeChar(txByte2, &conversionResult.s.Lo);
+
+  // 0 High (Inverted) for no transfer
+  PTH_PTH4 = 0; 
+  PTH_PTH5 = 0;
+  PTH_PTH6 = 0;
+  
+  //Analog_Input[ChannelNb].Value.l = Analog_Input[channelNb].Value.l;
 }

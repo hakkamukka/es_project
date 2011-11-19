@@ -239,7 +239,15 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(0);
       LCD_OutString("TOTAL ENERGY   ");
       LCD_SetLine(1);
-      LCD_OutString("                ");
+      if (Total_Energy.s.Lo >= 999)
+      	LCD_OutString("xxx:xxx");
+      else
+      {
+      	LCD_OutInteger(Total_Energy.s.Hi);
+      	LCD_OutString(".");
+      	LCD_OutInteger(Total_Energy.s.Lo);
+      	LCD_OutString(" kWh");
+      }
       LCD_SetLine(2);
       LCD_OutString("                ");
       LCD_SetLine(3);
@@ -264,6 +272,15 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(0);
       LCD_OutString("TOTAL COST      ");
       LCD_SetLine(1);
+      if (Total_Cost.s.Hi >= 9999 && Total_Cost.s.Lo >=99)
+      	LCD_OutString("xxxx.xx");
+      else
+      {
+      	LCD_OutString("$");
+      	LCD_OutInteger(Total_Cost.s.Hi);
+      	LCD_OutString(".");
+      	LCD_OutInteger(Total_Cost.s.Lo);
+      }
       LCD_OutString("                ");
       LCD_SetLine(2);
       LCD_OutString("                ");

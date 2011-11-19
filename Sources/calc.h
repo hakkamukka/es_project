@@ -14,6 +14,8 @@
 #include "LCD.h"
 #include "analog.h"
 
+extern TAnalogInput Analog_Input[NB_INPUT_CHANNELS];
+
 // ----------------------------------------
 //Calculate_AveragePower
 //Description
@@ -24,7 +26,7 @@
 //  
 //Conditions:
 //  
-TINT16 Calculate_Power(TChannelNb voltage, TChannelNb current);
+TUINT16 Calculate_Power(TChannelNb voltage, TChannelNb current);
 
 // ----------------------------------------
 //Calculate_TotalEnergy

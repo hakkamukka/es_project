@@ -59,4 +59,16 @@ void Analog_Setup(const UINT32 busClk);
 
 void Analog_Get(const TChannelNb channelNb);
 
+// ----------------------------------------
+//Analog_Put
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+void Analog_Put(const TChannelNb channelNb, INT16 data);
+
 #endif

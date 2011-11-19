@@ -10,12 +10,15 @@
 
 static const INT8 N_VALUE = 16; // 2^4 for n
 
-TINT16 Calculate_Power(TChannelNb voltage, TChannelNb current)
+TUINT16 Calculate_Power(TChannelNb voltage, TChannelNb current)
 {
-	//Analog_Input[voltage].value.l;
-	//Analog_Input[current].value.l;
+	TINT16 voltageValue, currentValue;
+	TINT32 powerValue;
+
+	voltageValue.l = Analog_Input[voltage].Value.l;
+	currentValue.l = Analog_Input[current].Value.l;
 	
-	
+	//powerValue.l = voltageValue.l * currentValue.l;
 }
 
 UINT16 Calculate_TotalEnergy(void)

@@ -28,6 +28,10 @@ extern UINT8 Clock_Seconds;
 extern UINT8 Clock_Minutes;
 extern UINT32 Clock_MicroSeconds;
 
+extern TUINT16 Total_Energy;
+extern TUINT16 Average_Power;
+extern TUINT16 Total_Cost;
+
 
 
 // ----------------------------------------

@@ -53,8 +53,9 @@ void main(void)
   Timer_Init(TIMER_Ch7, &timerSetup);
   Timer_Set(TIMER_Ch7, Timer_Ch7_Delay);
   HMI_Setup();
-  
+
   Digital_Setup();
+  DEM_Setup();
   
   if (bSetupState)
   {
@@ -84,8 +85,9 @@ void main(void)
     {
       // && (Debug == 1) )
       (void)HandleTimePacket();
-      (void)HMI_Update();
       (void)DEM_CurrentTariff();
+      (void)HMI_Update();
+      
       
       //(void)HandleAnalogValPacket(Ch1);
     }
@@ -206,6 +208,13 @@ void HandlePacket(void)
   
   Analog_Get(Ch1);
   Analog_Get(Ch2);
+	
+	if (PWM_MAIN_LOOP == 63)
+		PWM_MAIN_LOOP = 0;
+	
+  Analog_Put(Ch1, DEM_VoltageTable[PWM_MAIN_LOOP]);
+  Analog_Put(Ch2, DEM_CurrentTable[PWM_MAIN_LOOP]);
+  PWM_MAIN_LOOP++;
   
   // In ASYNC mode, we send only if the value has changed.
   if (sControlMode == PACKET_ASYNCHRONOUS)
