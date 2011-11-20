@@ -26,7 +26,8 @@ extern TUINT16 Total_Cost;
 //extern UINT16 DEM_CurrentTable[16];
 extern INT16 DEM_VoltageTable[];
 extern INT16 DEM_CurrentTable[];
-
+extern INT16 DEM_VoltageTable1[];
+extern INT16 DEM_CurrentTable1[];
 // ----------------------------------------
 //DEM_Setup
 //Description

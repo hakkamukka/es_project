@@ -69,6 +69,6 @@ void Analog_Get(const TChannelNb channelNb);
 //  
 //Conditions:
 //  
-void Analog_Put(const TChannelNb channelNb, INT16 data);
+void Analog_Put(const TChannelNb channelNb, TUINT16 data);
 
 #endif

@@ -127,7 +127,7 @@ void Analog_Get(const TChannelNb channelNb)
 //  
 //Conditions:
 //  
-void Analog_Put(const TChannelNb channelNb, TINT16 data)
+void Analog_Put(const TChannelNb channelNb, const TUINT16 data)
 {
 	TUINT16 conversionResult;
   //INT16 medianArray[3];
@@ -141,11 +141,11 @@ void Analog_Put(const TChannelNb channelNb, TINT16 data)
   
   if (channelNb == Ch1)
   {
-  	txByte = 0x30;
+  	txByte = 0x20;
   }
   else if (channelNb == Ch2)
   {
-  	txByte = 0x70;
+  	txByte = 0x60;
   }
   
   txByte |= (data.s.Hi & 0x0F);

@@ -12,11 +12,17 @@ static const INT8 N_VALUE = 16; // 2^4 for n
 
 TUINT16 Calculate_Power(TChannelNb voltage, TChannelNb current)
 {
+	TINT16 voltageDigitalValue, currentDigitalValue;
 	TINT16 voltageValue, currentValue;
 	TINT32 powerValue;
 
-	voltageValue.l = Analog_Input[voltage].Value.l;
-	currentValue.l = Analog_Input[current].Value.l;
+	//voltageDigitalValue.l = Analog_Input[voltage].Value.l - 2047;
+	//currentDigitalValue.l = Analog_Input[current].Value.l;
+	
+	voltageValue.l = VOLTAGE_PEAK * (voltageDigitalValue.l / VOLTAGE_DIGITAL_STEPS);
+	currentValue.l = CURRENT_PEAK * (currentDigitalValue.l / CURRENT_DIGITAL_STEPS);
+	
+	
 	
 	//powerValue.l = voltageValue.l * currentValue.l;
 }
@@ -31,9 +37,44 @@ UINT16 Calculate_TotalCost(void)
 	
 }
 
-UINT16 Calculate_MultiplyQNotation(const TINT16 value1, const TINT16 value2, const UINT8 q)
+UINT16 Calculate_QNotation(UINT16 value, INT8 shift)
+{
+	UINT16 qValue;
+	qValue = value << shift;
+	return qValue;
+}
+
+UINT16 Calculate_Division(UINT16 dividend, UINT16 divisor)
+{
+	UINT16 quotient = 0;
+	UINT16 dividendAltered = dividend;
+
+	do
+	{
+		dividendAltered -= divisor;
+		quotient++;
+	}
+	while (dividendAltered > divisor);
+	return quotient;
+
+	if ( divisor > dividend )
+	{
+		return ~quotient;
+	};
+	
+	
+}
+
+UINT16 Calculate_EquivalentValue(const TINT16 voltage)
 {
 	
+}
+
+UINT16 Calculate_MultiplyQNotation(const TINT16 value1, const TINT16 value2, const UINT8 q)
+{
+	TINT16 result;
+	//result = value1 * value2;
+	return 0;
 }
 
 // ----------------------------------------

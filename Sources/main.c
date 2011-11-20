@@ -209,11 +209,11 @@ void HandlePacket(void)
   Analog_Get(Ch1);
   Analog_Get(Ch2);
 	
-	if (PWM_MAIN_LOOP == 63)
+	if (PWM_MAIN_LOOP == 127)
 		PWM_MAIN_LOOP = 0;
 	
-  Analog_Put(Ch1, DEM_VoltageTable[PWM_MAIN_LOOP]);
-  Analog_Put(Ch2, DEM_CurrentTable[PWM_MAIN_LOOP]);
+  Analog_Put(Ch1, DEM_VoltageTable3[PWM_MAIN_LOOP]);
+  Analog_Put(Ch2, DEM_CurrentTable3[PWM_MAIN_LOOP]);
   PWM_MAIN_LOOP++;
   
   // In ASYNC mode, we send only if the value has changed.

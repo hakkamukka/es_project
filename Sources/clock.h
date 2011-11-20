@@ -22,6 +22,13 @@ extern TUINT16 System_Minutes;
 extern TUINT16 System_Hours;
 extern TUINT16 System_Days;
 
+/*
+extern TUINT16 System_ElapsedSeconds;
+extern TUINT16 System_ElapsedMinutes;
+extern TUINT16 System_ElapsedHours;
+extern TUINT16 System_ElapsedDays;
+*/
+
 // ----------------------------------------
 // Clock_Setup
 // 

@@ -14,6 +14,11 @@
 #include "LCD.h"
 #include "analog.h"
 
+#define VOLTAGE_DIGITAL_STEPS 942
+#define CURRENT_DIGITAL_STEPS 409
+#define VOLTAGE_PEAK 230
+#define CURRENT_PEAK 1
+
 extern TAnalogInput Analog_Input[NB_INPUT_CHANNELS];
 
 // ----------------------------------------
@@ -52,6 +57,36 @@ UINT16 Calculate_TotalEnergy(void);
 //  
 UINT16 Calculate_TotalCost(void);
 
+UINT16 Calculate_QNotation(UINT16 value, INT8 base);
+
+UINT16 Calculate_Division(UINT16 dividend, UINT16 divisor);
+
+UINT16 Calculate_EquivalentValue(const TINT16 voltage);
+
+// ----------------------------------------
+//Calculate_MultiplyQNotation
+//Description	
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+UINT16 Calculate_MultiplyQNotation(const TINT16 value1, const TINT16 value2, const UINT8 q);
+
+// ----------------------------------------
+//Calculate_TariffQNotation
+//Description
+//  
+//Input:
+//  
+//Output:
+//  
+//Conditions:
+//  
+void Calculate_TariffQNotation(const UINT16 value);
+
 // ----------------------------------------
 //Calculate_Square_Root
 //Description
@@ -76,29 +111,7 @@ UINT32 Calculate_Square_Root(const UINT32 number, const UINT32 guess);
 //  
 UINT8 Calculate_RMS(const INT16 * const voltage, const UINT16 guess);
 
-// ----------------------------------------
-//Calculate_MultiplyQNotation
-//Description
-//  
-//Input:
-//  
-//Output:
-//  
-//Conditions:
-//  
-UINT16 Calculate_MultiplyQNotation(const TINT16 value1, const TINT16 value2, const UINT8 q);
 
-// ----------------------------------------
-//Calculate_TariffQNotation
-//Description
-//  
-//Input:
-//  
-//Output:
-//  
-//Conditions:
-//  
-void Calculate_TariffQNotation(const UINT16 value);
 
 
 
