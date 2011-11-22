@@ -74,7 +74,7 @@ void Timer_SetupPeriodicTimer(const UINT16 microSeconds, const UINT32 busClk)
   //MCCTL_MCEN  = 1;   // Counter enabled
   
   MCCNT = (UINT16) ((busClk/second) * (microSeconds/prescale));  
-  
+  //MCCNT = (UINT16) ((busClk/second) * (microSeconds));  
   MCCTL_FLMC = 1;    // Force load into MCCNT
 }
 
@@ -118,12 +118,13 @@ void Timer_Setup(void)
   DDRT_DDRT5    = 1;      // Set Port T Bit 5 to output for debug mode
   DDRT_DDRT6    = 1;      // Set Port T Bit 6 to output for debug mode
   
+  TSCR2_PR2 = 1;  //prescale 32
+  TSCR2_PR1 = 0;
+  TSCR2_PR0 = 1;
+  
   PTT_PTT4      = 0;      // Mod Down counter 
   PTT_PTT5      = 0;      // RTI
   PTT_PTT6      = 0;      // ECT Channel 7
-
-                  
-  
 }
 
 // ----------------------------------------
@@ -163,6 +164,7 @@ void Timer_Init(const TTimerChannel channelNb, const TTimerSetup * const aTimerS
           TCTL2_OL0 = 0;
         case TIMER_OUTPUT_TOGGLE:
           TCTL2_OM0 = 0;
+          
           TCTL2_OL0 = 1;
         case TIMER_OUTPUT_LOW:
           TCTL2_OM0 = 1;

@@ -11,7 +11,7 @@
 // new types
 #include "clock.h"
 
-
+static INT32 OldTimeInHours;
 
 
 // ----------------------------------------
@@ -129,4 +129,20 @@ BOOL Clock_Update(void)
   // Restore state
   ExitCritical();
   return bFALSE;  
+}
+
+UINT16 Clock_RunningTime(void)
+{
+	UINT16 minutes, seconds;
+	INT32 timeInHours, currentTime;
+	minutes = (UINT16)Calculate_NormalToQNotation(16, 3) * (System_Minutes.l << 3);
+	minutes = minutes >> 6;
+	seconds = (UINT16)Calculate_NormalToQNotation(27, 5) * (System_Seconds.l << 5);
+	seconds = seconds >> 10;
+	
+	currentTime = (System_Days.l * 24) + System_Hours.l + minutes + seconds;
+	timeInHours = currentTime - OldTimeInHours;
+	OldTimeInHours = currentTime;
+	
+	return timeInHours;
 }

@@ -195,16 +195,18 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(3);
       LCD_OutString("                ");
       LCD_SetLine(4);
-      LCD_OutString("                ");
-      LCD_SetLine(5);
       LCD_OutString("Test Mode: ");
       if (Debug)
         LCD_OutString("ON ");
       else
         LCD_OutString("OFF");
+      LCD_SetLine(5);
+      LCD_OutString("Tariff: ");
+      LCD_OutInteger(sTariffNumber);
       LCD_SetLine(6);
       LCD_OutString("Rate: ");
-      Calculate_TariffQNotation(sCurrentTariffRate);
+      LCD_QNotation(sCurrentTariffRate, 1);
+      //Calculate_TariffQNotation(sCurrentTariffRate);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = MeteringTimeMenu;    
@@ -214,22 +216,26 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(0);
       LCD_OutString("AVERAGE POWER   ");
       LCD_SetLine(1);
-      LCD_OutString("                ");
+      //LCD_OutString("                ");
+      LCD_OutString("     ");
+      LCD_QNotation(DEM_Average_Power.l, 1);
+      LCD_OutString("W");
       LCD_SetLine(2);
       LCD_OutString("                ");
       LCD_SetLine(3);
       LCD_OutString("                ");
       LCD_SetLine(4);
-      LCD_OutString("                ");
-      LCD_SetLine(5);
       LCD_OutString("Test Mode: ");
       if (Debug)
         LCD_OutString("ON ");
       else
         LCD_OutString("OFF");
+      LCD_SetLine(5);
+      LCD_OutString("Tariff: ");
+      LCD_OutInteger(sTariffNumber);
       LCD_SetLine(6);
       LCD_OutString("Rate: ");
-      Calculate_TariffQNotation(sCurrentTariffRate);
+      LCD_QNotation(sCurrentTariffRate, 1);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = AveragePowerMenu;    
@@ -239,30 +245,33 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(0);
       LCD_OutString("TOTAL ENERGY   ");
       LCD_SetLine(1);
-      if (Total_Energy.s.Lo >= 999)
+      if (DEM_Total_Energy.s.Lo >= 999)
       	LCD_OutString("xxx:xxx");
       else
       {
-      	LCD_OutInteger(Total_Energy.s.Hi);
+      	LCD_QNotation(DEM_Total_Energy.l, 1);
+      	LCD_OutString("kWh");
+      	/*LCD_OutInteger(DEM_Total_Energy.s.Hi);
       	LCD_OutString(".");
-      	LCD_OutInteger(Total_Energy.s.Lo);
-      	LCD_OutString(" kWh");
+      	LCD_OutInteger(DEM_Total_Energy.s.Lo);
+      	LCD_OutString(" kWh");*/
       }
       LCD_SetLine(2);
       LCD_OutString("                ");
       LCD_SetLine(3);
       LCD_OutString("                ");
       LCD_SetLine(4);
-      LCD_OutString("                ");
-      LCD_SetLine(5);
       LCD_OutString("Test Mode: ");
       if (Debug)
         LCD_OutString("ON ");
       else
         LCD_OutString("OFF");
+      LCD_SetLine(5);
+      LCD_OutString("Tariff: ");
+      LCD_OutInteger(sTariffNumber);
       LCD_SetLine(6);
       LCD_OutString("Rate: ");
-      //LCD_QNotation(sCurrentTariffRate);
+      LCD_QNotation(sCurrentTariffRate, 1);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = TotalEnergyMenu;
@@ -272,14 +281,14 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(0);
       LCD_OutString("TOTAL COST      ");
       LCD_SetLine(1);
-      if (Total_Cost.s.Hi >= 9999 && Total_Cost.s.Lo >=99)
+      if (DEM_Total_Cost.s.Hi >= 9999 && DEM_Total_Cost.s.Lo >=99)
       	LCD_OutString("xxxx.xx");
       else
       {
       	LCD_OutString("$");
-      	LCD_OutInteger(Total_Cost.s.Hi);
+      	LCD_OutInteger(DEM_Total_Cost.s.Hi);
       	LCD_OutString(".");
-      	LCD_OutInteger(Total_Cost.s.Lo);
+      	LCD_OutInteger(DEM_Total_Cost.s.Lo);
       }
       LCD_OutString("                ");
       LCD_SetLine(2);
@@ -287,16 +296,17 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(3);
       LCD_OutString("                ");
       LCD_SetLine(4);
-      LCD_OutString("                ");
-      LCD_SetLine(5);
       LCD_OutString("Test Mode: ");
       if (Debug)
         LCD_OutString("ON ");
       else
         LCD_OutString("OFF");
+      LCD_SetLine(5);
+      LCD_OutString("Tariff: ");
+      LCD_OutInteger(sTariffNumber);
       LCD_SetLine(6);
       LCD_OutString("Rate: ");
-      Calculate_TariffQNotation(sCurrentTariffRate);
+      LCD_QNotation(sCurrentTariffRate, 1);
       LCD_SetLine(7);
       LCD_OutString("      CYC       ");
       LCDCurrentState = TotalCostMenu;

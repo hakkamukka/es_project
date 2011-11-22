@@ -13,13 +13,28 @@
 #include "types.h"
 #include "LCD.h"
 #include "analog.h"
+#include "DEM.h"
 
-#define VOLTAGE_DIGITAL_STEPS 942
+#define VOLTAGE_DIGITAL_STEPS 1331
 #define CURRENT_DIGITAL_STEPS 409
-#define VOLTAGE_PEAK 230
-#define CURRENT_PEAK 1
+#define VOLTAGE_PEAK 					230
+#define CURRENT_PEAK 					1
+
+#define BINARY_SHIFT_3				3
+#define BINARY_SHIFT_5				5
+#define BINARY_SHIFT_10 			10
+
+#define GUESSING_ITERATIONS 2
 
 extern TAnalogInput Analog_Input[NB_INPUT_CHANNELS];
+
+extern TUINT16 DEM_Total_Energy;
+
+typedef enum
+{
+	qLeft,
+	qRight
+} TQNotationSide;
 
 // ----------------------------------------
 //Calculate_AveragePower
@@ -31,7 +46,7 @@ extern TAnalogInput Analog_Input[NB_INPUT_CHANNELS];
 //  
 //Conditions:
 //  
-TUINT16 Calculate_Power(TChannelNb voltage, TChannelNb current);
+UINT16 Calculate_Power(TChannelNb voltage, TChannelNb current);
 
 // ----------------------------------------
 //Calculate_TotalEnergy
@@ -43,7 +58,7 @@ TUINT16 Calculate_Power(TChannelNb voltage, TChannelNb current);
 //  
 //Conditions:
 //  
-UINT16 Calculate_TotalEnergy(void);
+void Calculate_TotalEnergy(const INT16 array[]);
 
 // ----------------------------------------
 //Calculate_TotalCost
@@ -55,13 +70,20 @@ UINT16 Calculate_TotalEnergy(void);
 //  
 //Conditions:
 //  
-UINT16 Calculate_TotalCost(void);
 
-UINT16 Calculate_QNotation(UINT16 value, INT8 base);
+//UINT16 Calculate_TotalCost(void);
+
+void Calcualte_TotalCost(void);
+
+INT32 Calculate_NormalToQNotation(const INT32 value, const UINT8 shift);
+
+INT16 Calculate_QNotationToNormal(const UINT32 value, const UINT8 shift);
+
+INT16 Calculate_DigitalToQNotation(const INT32 number);
 
 UINT16 Calculate_Division(UINT16 dividend, UINT16 divisor);
 
-UINT16 Calculate_EquivalentValue(const TINT16 voltage);
+
 
 // ----------------------------------------
 //Calculate_MultiplyQNotation
@@ -74,18 +96,6 @@ UINT16 Calculate_EquivalentValue(const TINT16 voltage);
 //Conditions:
 //  
 UINT16 Calculate_MultiplyQNotation(const TINT16 value1, const TINT16 value2, const UINT8 q);
-
-// ----------------------------------------
-//Calculate_TariffQNotation
-//Description
-//  
-//Input:
-//  
-//Output:
-//  
-//Conditions:
-//  
-void Calculate_TariffQNotation(const UINT16 value);
 
 // ----------------------------------------
 //Calculate_Square_Root

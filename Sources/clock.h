@@ -59,4 +59,7 @@ void Clock_Setup(const UINT8 prescaleRate, const UINT8 modulusCount);
 
 BOOL Clock_Update(void);
 
+UINT16 Clock_RunningTime(void);
+
+
 #endif

@@ -27,6 +27,7 @@ void main(void)
   // Setup Routines.
   BOOL bSetupState;
   TTimerSetup timerSetup;
+  TTimerSetup timerSetupCh0;
   
   
   bSetupState = Packet_Setup(baudRate, busClk) &&
@@ -41,6 +42,12 @@ void main(void)
   timerSetup.inputDetection = TIMER_INPUT_OFF;
   timerSetup.toggleOnOverflow = bFALSE;
   timerSetup.interruptEnable = bTRUE;
+  
+  timerSetupCh0.outputCompare = bTRUE;
+  timerSetupCh0.outputAction = TIMER_OUTPUT_DISCONNECT;
+  timerSetupCh0.inputDetection = TIMER_INPUT_OFF;
+  timerSetupCh0.toggleOnOverflow = bFALSE;
+  timerSetupCh0.interruptEnable = bTRUE;
                 
   Clock_Setup(prescaleRate, modulusCount);
   Analog_Setup(busClk);
@@ -52,9 +59,14 @@ void main(void)
   //Timer_SetupPulseAccumulators();
   Timer_Init(TIMER_Ch7, &timerSetup);
   Timer_Set(TIMER_Ch7, Timer_Ch7_Delay);
+  
+  //Setup ECT_Ch0
+  Timer_Init(TIMER_Ch0, &timerSetupCh0);
+  Timer_Set(TIMER_Ch0, Timer_Ch0_Delay);
+  Timer_Enable(TIMER_Ch0, bTRUE); //enables the timer channel 0 interrupt
+  
   HMI_Setup();
-
-  Digital_Setup();
+  
   DEM_Setup();
   
   if (bSetupState)
@@ -86,6 +98,8 @@ void main(void)
       // && (Debug == 1) )
       (void)HandleTimePacket();
       (void)DEM_CurrentTariff();
+      (void)DEM_AveragePower();
+      (void)Calculate_TotalEnergy(DEM_Power_Array);
       (void)HMI_Update();
       
       
@@ -199,41 +213,71 @@ void HandlePacket(void)
 //  Input: none
 //  Output: none
 //  Conditions: none    
- void interrupt 26 MCCNT_ISR(void)
- {
-  MCFLG_MCZF = 1; // Clear/Ack
-  
-  if (Debug)
-    PTT_PTT4 ^= 1;
-  
-  Analog_Get(Ch1);
-  Analog_Get(Ch2);
+void interrupt 26 MCCNT_ISR(void)
+{
+	MCFLG_MCZF = 1; // Clear/Ack
+
+	if (Debug)
+	  PTT_PTT4 ^= 1;
+	
+	//(void)Calculate_TotalEnergy(DEM_Power_Array);
+	
+	/*
+	Analog_Get(Ch1);
+	Analog_Get(Ch2);
+
+	if (PWM_MAIN_LOOP == 127)
+		PWM_MAIN_LOOP = 0;
+
+	Analog_Put(Ch1, DEM_VoltageTable3[PWM_MAIN_LOOP]);
+	Analog_Put(Ch2, DEM_CurrentTable3[PWM_MAIN_LOOP]);
+	PWM_MAIN_LOOP++;
+	*/
+	
+	// In ASYNC mode, we send only if the value has changed.
+	if (sControlMode == PACKET_ASYNCHRONOUS)
+	{
+	  if (Analog_Input[Ch1].OldValue.l != Analog_Input[Ch1].Value.l)
+	    (void)HandleAnalogValPacket(Ch1);
+	  if (Analog_Input[Ch2].OldValue.l != Analog_Input[Ch2].Value.l)
+	    (void)HandleAnalogValPacket(Ch2);
+	}
+	// In SYNC mode, we send all the time.
+	else
+	{
+	  (void)HandleAnalogValPacket(Ch1);
+	  (void)HandleAnalogValPacket(Ch2);
+	}
+	
+	
+}
+
+void interrupt 8 ECTCh0_ISR(void)
+{
+	UINT8 SCI;
+	TFLG1_C0F = 1; 		//ACK the interrupt on ECT_Ch0
+	SCI = SCI0SR1;
+	//Timer_Set(TIMER_Ch0, Timer_Ch0_Delay);
+	
 	
 	if (PWM_MAIN_LOOP == 127)
 		PWM_MAIN_LOOP = 0;
+
+	DEM_ArrayShift(DEM_Power_Array);
+
+	Analog_Put(Ch1, DEM_VoltageTable3[PWM_MAIN_LOOP]);
+	Analog_Put(Ch2, DEM_CurrentTable3[PWM_MAIN_LOOP]);
+	PWM_MAIN_LOOP++;
+
+	Analog_Get(Ch1);
+	Analog_Get(Ch2);
 	
-  Analog_Put(Ch1, DEM_VoltageTable3[PWM_MAIN_LOOP]);
-  Analog_Put(Ch2, DEM_CurrentTable3[PWM_MAIN_LOOP]);
-  PWM_MAIN_LOOP++;
-  
-  // In ASYNC mode, we send only if the value has changed.
-  if (sControlMode == PACKET_ASYNCHRONOUS)
-  {
-    if (Analog_Input[Ch1].OldValue.l != Analog_Input[Ch1].Value.l)
-      (void)HandleAnalogValPacket(Ch1);
-    if (Analog_Input[Ch2].OldValue.l != Analog_Input[Ch2].Value.l)
-      (void)HandleAnalogValPacket(Ch2);
-  }
-  // In SYNC mode, we send all the time.
-  else
-  {
-    (void)HandleAnalogValPacket(Ch1);
-    (void)HandleAnalogValPacket(Ch2);
-  }
-  
- }
-   
- 
+	//(void)DEM_AveragePower();
+	
+	
+	
+	
+}
 
 //---------------------------------
 //  HandleStartupPacket
@@ -429,13 +473,13 @@ BOOL HandleAnalogValPacket(TChannelNb channelNb)
 //  Conditions: none
 BOOL HandleTestModePacket(void)
 {
-  switch (Packet_Parameter1)
+  switch (Packet_Parameter3)
   {
     case 0:
       return Packet_Put( CMD_TEST_MODE, (UINT8)Debug, 0, 0 );
       break;
     case 1:
-      return EEPROM_Write16(&Debug, Packet_Parameter2);    
+      return EEPROM_Write16(&Debug, Packet_Parameter1);    
       break;
   }
 }
@@ -449,7 +493,15 @@ BOOL HandleTestModePacket(void)
 //  Conditions: none
 BOOL HandleTariffPacket(void)
 {
-  return EEPROM_Write16(&sTariffNumber, Packet_Parameter1);
+	switch (Packet_Parameter3)
+	{
+		case 0:
+			return Packet_Put( CMD_TARIFF, (UINT8)sTariffNumber, 0, 0);
+			break;
+		case 1:
+			return EEPROM_Write16(&sTariffNumber, Packet_Parameter1);
+			break;
+	}
 }
 
 //---------------------------------
@@ -461,13 +513,14 @@ BOOL HandleTariffPacket(void)
 //  Conditions: none
 BOOL HandleTime1Packet(void)
 {
-  switch(Packet_Parameter1)
+  switch(Packet_Parameter3)
   {
     case 0:
       return Packet_Put(CMD_TIME1, System_Seconds.s.Lo, System_Minutes.s.Lo, 0);
       break;
     case 1:
-      
+      System_Seconds.s.Lo = Packet_Parameter1;
+      System_Minutes.s.Lo = Packet_Parameter2;
       break;
   }
 }
@@ -481,13 +534,14 @@ BOOL HandleTime1Packet(void)
 //  Conditions: none
 BOOL HandleTime2Packet(void)
 {
-  switch(Packet_Parameter1)
+  switch(Packet_Parameter3)
   {
     case 0:
-      return Packet_Put(CMD_TIME2, System_Hours.s.Lo, System_Days.s.Lo, 0);
+      return Packet_Put(CMD_TIME1, System_Hours.s.Lo, System_Days.s.Lo, 0);
       break;
     case 1:
-      
+      System_Hours.s.Lo = Packet_Parameter1;
+      System_Days.s.Lo = Packet_Parameter2;
       break;
   }
 }
@@ -501,14 +555,11 @@ BOOL HandleTime2Packet(void)
 //  Conditions: none
 BOOL HandlePowerPacket(void)
 {
-  switch(Packet_Parameter1)
+  switch(Packet_Parameter3)
   {
-    case 0:
-       
-      break;
-    case 1:
-      
-      break;
+  	case 0:
+  		return Packet_Put(CMD_POWER, DEM_Average_Power.s.Lo, DEM_Average_Power.s.Hi, 0);
+  		break;
   }
 }
 
@@ -524,10 +575,7 @@ BOOL HandleEnergyPacket(void)
   switch(Packet_Parameter1)
   {
     case 0:
-      
-      break;
-    case 1:
-      
+      return Packet_Put(CMD_ENERGY, DEM_Total_Energy.s.Lo, DEM_Total_Energy.s.Hi, 0);
       break;
   }
 }
@@ -544,10 +592,7 @@ BOOL HandleCostPacket(void)
   switch(Packet_Parameter1)
   {
     case 0:
-      
-      break;
-    case 1:
-      
+      return Packet_Put(CMD_COST, DEM_Total_Cost.s.Lo, DEM_Total_Cost.s.Hi, 0); 
       break;
   }
 }

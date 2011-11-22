@@ -28,9 +28,9 @@ extern UINT8 Clock_Seconds;
 extern UINT8 Clock_Minutes;
 extern UINT32 Clock_MicroSeconds;
 
-extern TUINT16 Total_Energy;
-extern TUINT16 Average_Power;
-extern TUINT16 Total_Cost;
+extern TUINT16 DEM_Total_Energy;
+extern TUINT16 DEM_Average_Power;
+extern TUINT16 DEM_Total_Cost;
 
 
 

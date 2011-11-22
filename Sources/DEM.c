@@ -10,7 +10,6 @@
 
 //#define PWM_SAMPLE_SIZE 16
 
-static TUINT16 PowerArray[POWER_ARRAY_SIZE];
 static TChannelNb voltage = Ch1;
 static TChannelNb current = Ch2;
 
@@ -28,11 +27,19 @@ TUINT16 totalPower, averagePower;
 //
 void DEM_Setup()
 {
-	Total_Energy.l 			= 0;
-	Average_Power.l 		= 0;
-	Total_Cost.l 				= 0;
+	DEM_Total_Energy.l 			= 0;
+	DEM_Average_Power.l 		= 0;
+	DEM_Total_Cost.l 				= 0;
 }
 
+void DEM_ArrayShift(INT16 array[])
+{
+	INT8 i;
+	for (i = 0; i < POWER_ARRAY_SIZE - 1; i++)
+	{
+		array[i + 1] = array[i];
+	}
+}
 // ----------------------------------------
 //DEM_AveragePower
 //Description
@@ -46,20 +53,20 @@ void DEM_Setup()
 void DEM_AveragePower()
 {
 	INT8 i;
+
+	DEM_Power_Array[0] = Calculate_Power(voltage, current);
 	
 	for (i = 0; i < POWER_ARRAY_SIZE; i++)
 	{
-		PowerArray[i + 1] = PowerArray[i];
-	}
-	PowerArray[0].l = Calculate_Power(voltage, current).l;
-	
-	for (i = 0; i < POWER_ARRAY_SIZE; i++)
-	{
-		totalPower.l = totalPower.l + PowerArray[i].l;
+		totalPower.l = totalPower.l + DEM_Power_Array[i];
 	}
 	
-	averagePower.l = totalPower.l / POWER_ARRAY_SIZE;
-	
+	DEM_Average_Power.l = totalPower.l / POWER_ARRAY_SIZE;
+}
+
+void DEM_TotalCost()
+{
+	//sCurrentTariffRate
 }
 
 // ----------------------------------------
