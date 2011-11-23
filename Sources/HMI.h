@@ -30,7 +30,10 @@ extern UINT32 Clock_MicroSeconds;
 
 extern TUINT16 DEM_Total_Energy;
 extern TUINT16 DEM_Average_Power;
-extern TUINT16 DEM_Total_Cost;
+extern TUINT32 DEM_Total_Cost;
+
+extern UINT8 Metering_Time_Display_Array[];
+extern UINT8 Cost_Display_Array[4];
 
 
 
@@ -57,6 +60,30 @@ void HMI_Setup(void);
 // Conditions:
 //   none
 void HMI_Update(void);
+
+// ----------------------------------------
+// DisplayTime
+// 
+// Displays the time in the desired format.
+// Input:
+//   none
+// Output:
+//   none
+// Conditions:
+//   none
+void DisplayTime(UINT16 const d, UINT16 const h, UINT16 const m, UINT16 const s);
+// ----------------------------------------
+// DisplayCost
+// 
+// Displays the cost in the desired format.
+// Input:
+//   none
+// Output:
+//   none
+// Conditions:
+//   none
+void DisplayCost(TUINT32 const price);
+
 
 // ----------------------------------------
 // CreateMenu

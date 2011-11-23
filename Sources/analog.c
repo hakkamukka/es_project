@@ -17,7 +17,7 @@ static const INT16 ADC_OFFSET = 2048; // 12 Bit Offset, 1000 0000 0000
 // 
 // Sets up the ADC and DAC
 // Input:
-//   none
+//   busClk to help do SPI_Setup
 // Output:
 //   none
 // Conditions:
@@ -120,13 +120,15 @@ void Analog_Get(const TChannelNb channelNb)
 // ----------------------------------------
 //Analog_Put
 //Description
-//  
+//  Puts a digital representation of the analogue wave to the
+//	repsective channel
 //Input:
-//  
+//  channelNb is the channel to input data
+//	data to feed into the channel
 //Output:
-//  
+//  none
 //Conditions:
-//  
+//  Analog_Setup is called
 void Analog_Put(const TChannelNb channelNb, const TUINT16 data)
 {
 	TUINT16 conversionResult;

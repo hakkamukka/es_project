@@ -131,6 +131,10 @@ BOOL Clock_Update(void)
   return bFALSE;  
 }
 
+
+
+
+/*
 UINT16 Clock_RunningTime(void)
 {
 	UINT16 minutes, seconds;
@@ -146,3 +150,5 @@ UINT16 Clock_RunningTime(void)
 	
 	return timeInHours;
 }
+
+*/

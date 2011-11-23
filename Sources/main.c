@@ -65,6 +65,11 @@ void main(void)
   Timer_Set(TIMER_Ch0, Timer_Ch0_Delay);
   Timer_Enable(TIMER_Ch0, bTRUE); //enables the timer channel 0 interrupt
   
+  //Setup ECT_Ch6
+  Timer_Init(TIMER_Ch2, &timerSetupCh0);
+  Timer_Set(TIMER_Ch2, Timer_Ch2_Delay);
+  Timer_Enable(TIMER_Ch2, bFALSE); //enables the timer channel 0 interrupt
+  
   HMI_Setup();
   
   DEM_Setup();
@@ -81,8 +86,7 @@ void main(void)
   
   EnableInterrupts;
   (void)HandleStartupPacket();
-  
-  
+
   // Main loop
   for (;;)
   {
@@ -96,16 +100,16 @@ void main(void)
     if (Clock_Update())
     {
       // && (Debug == 1) )
-      (void)HandleTimePacket();
+      //(void)HandleTimePacket();
       (void)DEM_CurrentTariff();
+      (void)DEM_ArrayShift(DEM_Power_Array);
       (void)DEM_AveragePower();
       (void)Calculate_TotalEnergy(DEM_Power_Array);
+      (void)Calcualte_TotalCost();
+      (void)Calculate_RMS(Ch1, DEM_Power_Array);
+      (void)Calculate_RMS(Ch2, DEM_Current_Array);
       (void)HMI_Update();
-      
-      
-      //(void)HandleAnalogValPacket(Ch1);
     }
-  
     ARMCOP = copEnd;
   }
 }
@@ -218,22 +222,30 @@ void interrupt 26 MCCNT_ISR(void)
 	MCFLG_MCZF = 1; // Clear/Ack
 
 	if (Debug)
-	  PTT_PTT4 ^= 1;
-	
-	//(void)Calculate_TotalEnergy(DEM_Power_Array);
-	
-	/*
-	Analog_Get(Ch1);
-	Analog_Get(Ch2);
+	{
+		PTT_PTT4 ^= 1;
+		
+		if (SAMPLE_CURRENT_LOOP == 31)
+			SAMPLE_CURRENT_LOOP = 0;
 
-	if (PWM_MAIN_LOOP == 127)
-		PWM_MAIN_LOOP = 0;
+		Analog_Put(Ch2, DEM_CurrentTable3[SAMPLE_CURRENT_LOOP]);
+		SAMPLE_CURRENT_LOOP++;
 
-	Analog_Put(Ch1, DEM_VoltageTable3[PWM_MAIN_LOOP]);
-	Analog_Put(Ch2, DEM_CurrentTable3[PWM_MAIN_LOOP]);
-	PWM_MAIN_LOOP++;
-	*/
-	
+		Analog_Get(Ch2);
+		
+		if (CURRENT_LOOP < 16)
+		{
+			DEM_Current_Array[CURRENT_LOOP] = Analog_Input[Ch2].Value.l;
+			CURRENT_LOOP++;
+		}
+		else
+		{
+			CURRENT_LOOP = 0;
+			DEM_Current_Array[CURRENT_LOOP] = Analog_Input[Ch2].Value.l;
+		}
+		
+		
+	}
 	// In ASYNC mode, we send only if the value has changed.
 	if (sControlMode == PACKET_ASYNCHRONOUS)
 	{
@@ -248,35 +260,69 @@ void interrupt 26 MCCNT_ISR(void)
 	  (void)HandleAnalogValPacket(Ch1);
 	  (void)HandleAnalogValPacket(Ch2);
 	}
-	
-	
+
+
 }
 
+//---------------------------------
+//  ECTCh0_ISR
+//
+//  The ISR for ECT Channel 0
+//  This will send and receive the voltaeg values.
+//  Input: none
+//  Output: none
+//  Conditions: none    
 void interrupt 8 ECTCh0_ISR(void)
 {
-	UINT8 SCI;
+	//UINT8 SCI;
 	TFLG1_C0F = 1; 		//ACK the interrupt on ECT_Ch0
-	SCI = SCI0SR1;
+	//SCI = SCI0SR1;
 	//Timer_Set(TIMER_Ch0, Timer_Ch0_Delay);
 	
+	if(Debug)
+	{
+		if (SAMPLE_VOLTAGE_LOOP == 31)
+			SAMPLE_VOLTAGE_LOOP = 0;
 	
-	if (PWM_MAIN_LOOP == 127)
-		PWM_MAIN_LOOP = 0;
+		Analog_Put(Ch1, DEM_VoltageTable3[SAMPLE_VOLTAGE_LOOP]);
+		SAMPLE_VOLTAGE_LOOP++;
 
-	DEM_ArrayShift(DEM_Power_Array);
+		Analog_Get(Ch1);
+		
+		if (VOLTAGE_LOOP < 16)
+		{
+			DEM_Voltage_Array[VOLTAGE_LOOP] = Analog_Input[Ch1].Value.l;
+			VOLTAGE_LOOP++;
+		}
+		else
+		{
+			VOLTAGE_LOOP = 0;
+			DEM_Voltage_Array[VOLTAGE_LOOP] = Analog_Input[Ch1].Value.l;
+		}
+	}
 
-	Analog_Put(Ch1, DEM_VoltageTable3[PWM_MAIN_LOOP]);
-	Analog_Put(Ch2, DEM_CurrentTable3[PWM_MAIN_LOOP]);
-	PWM_MAIN_LOOP++;
 
-	Analog_Get(Ch1);
-	Analog_Get(Ch2);
-	
-	//(void)DEM_AveragePower();
-	
-	
-	
-	
+
+}
+
+//---------------------------------
+//  ECTCh2_ISR
+//
+//  The ISR for ECT Channel 2
+//  This will send and receive the current values
+//  Input: none
+//  Output: none
+//  Conditions: none    
+void interrupt 10 ECTCh2_ISR(void)
+{
+  TFLG1_C2F = 1; 
+  /*if (SAMPLE_CURRENT_LOOP == 31)
+		SAMPLE_CURRENT_LOOP = 0;
+
+	Analog_Put(Ch2, DEM_CurrentTable3[SAMPLE_CURRENT_LOOP]);
+	SAMPLE_CURRENT_LOOP++;
+
+	Analog_Get(Ch2);*/
 }
 
 //---------------------------------
@@ -606,7 +652,13 @@ BOOL HandleCostPacket(void)
 //  Conditions: none
 BOOL HandleFrequencyPacket(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+  	case 0:
+  		
+  		break;
+  	
+  }
 }
 
 //---------------------------------
@@ -618,7 +670,12 @@ BOOL HandleFrequencyPacket(void)
 //  Conditions: none
 BOOL HandleVoltageRMSPacket(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+  	case 0:
+  		Packet_Put(CMD_VOLTAGE_RMS, Voltage_RMS.s.Lo, Voltage_RMS.s.Hi, 0);
+  		break;
+  }
 }
 
 //---------------------------------
@@ -630,7 +687,12 @@ BOOL HandleVoltageRMSPacket(void)
 //  Conditions: none
 BOOL HandleCurrentRMSPacket(void)
 {
-  
+  switch(Packet_Parameter1)
+  {
+  	case 0:
+  		Packet_Put(CMD_CURRENT_RMS, Current_RMS.s.Lo, Current_RMS.s.Hi, 0);
+  		break;
+  }
 }
 
 //---------------------------------
@@ -642,18 +704,11 @@ BOOL HandleCurrentRMSPacket(void)
 //  Conditions: none
 BOOL HandlePowerFactorPacket(void)
 {
-  
+    switch(Packet_Parameter1)
+  {
+  	case 0:
+  		
+  		break;
+  	
+  }
 }
-
-//---------------------------------
-//  HandleAcceleratePacket
-//
-//  
-//  Input: none
-//  Output: none
-//  Conditions: none
-BOOL HandleAcceleratePacket(void)
-{
-  
-}
-

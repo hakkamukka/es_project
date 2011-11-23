@@ -64,18 +64,21 @@ void Timer_SetupPeriodicTimer(const UINT16 microSeconds, const UINT32 busClk)
   // We need a 2ms period = 2000 microSeconds
   UINT8 prescale = 16;
   
+  MCFLG_MCZF  = 1;
+  
   MCCTL_MCPR  = 3;   // Increments every (prescaler/busClk) seconds  
   
   MCCTL_ICLAT = 0;   // Input capture latch mode disabled
   MCCTL_RDMCL = 0;   // Reads of MCCNT will return current value
   MCCTL_MODMC = 1;   // Modulus mode enabled
-  //MCCTL_MCZI  = 1;   // Modulus counter underflow interrupt enabled
+  MCCTL_MCZI  = 1;   // Modulus counter underflow interrupt enabled
   
-  //MCCTL_MCEN  = 1;   // Counter enabled
+  MCCTL_MCEN  = 1;   // Counter enabled
+  
   
   MCCNT = (UINT16) ((busClk/second) * (microSeconds/prescale));  
   //MCCNT = (UINT16) ((busClk/second) * (microSeconds));  
-  MCCTL_FLMC = 1;    // Force load into MCCNT
+  MCCTL_FLMC = 0;    // Force load into MCCNT
 }
 
 // ----------------------------------------

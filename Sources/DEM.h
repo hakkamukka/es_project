@@ -18,24 +18,35 @@
 
 #define POWER_ARRAY_SIZE 16
 
-extern INT16 		DEM_Power_Array[POWER_ARRAY_SIZE];
-extern INT16		DEM_Power_Squared_Array[POWER_ARRAY_SIZE];
-extern TUINT16	DEM_Total_Energy;
-extern TUINT16 	DEM_Average_Power;
-extern TUINT16 	DEM_Total_Cost;
+extern	INT16			DEM_Voltage_Array[POWER_ARRAY_SIZE];
+extern	INT16			DEM_Current_Array[POWER_ARRAY_SIZE];
+extern 	INT16 		DEM_Power_Array[POWER_ARRAY_SIZE];
+extern 	INT16			DEM_Power_Squared_Array[POWER_ARRAY_SIZE];
+extern 	TUINT16		DEM_Total_Energy;
+extern 	TUINT16 	DEM_Average_Power;
 
 // ----------------------------------------
 //DEM_Setup
 //Description
-//  
+//  Setup the DEM
 //Input:
-//  
+//  none
 //Output:
-//  
+//  none
 //Conditions:
-//
+//	none
 void DEM_Setup(void);
 
+// ----------------------------------------
+//DEM_ArrayShift
+//Description
+//  Shift an array
+//Input:
+//  array[] is the array to be shifted
+//Output:
+//  none
+//Conditions:
+//	none
 void DEM_ArrayShift(INT16 array[]);
 
 // ----------------------------------------
@@ -48,7 +59,7 @@ void DEM_ArrayShift(INT16 array[]);
 //  
 //Conditions:
 //
-void DEM_TotalEnergy(void);
+//void DEM_TotalEnergy(void);
 
 // ----------------------------------------
 //DEM_TotalCost
@@ -60,18 +71,18 @@ void DEM_TotalEnergy(void);
 //  
 //Conditions:
 //
-void DEM_TotalCost(void);
+//void DEM_TotalCost(void);
 
 // ----------------------------------------
 //DEM_AveragePower
 //Description
-//  
+//  Calculate the average power from DEM_Power_Array[16]
 //Input:
-//  
+//  none
 //Output:
-//  
+//  none
 //Conditions:
-//
+//	none
 void DEM_AveragePower(void);
 
 

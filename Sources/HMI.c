@@ -132,6 +132,46 @@ void interrupt 13 TIE5_ISR(void)
 }
 
 // ----------------------------------------
+// DisplayTime
+// 
+// Displays the time in the desired format.
+// Input:
+//   none
+// Output:
+//   none
+// Conditions:
+//   none
+void DisplayTime(UINT16 const d, UINT16 const h, UINT16 const m, UINT16 const s)
+{
+	Metering_Time_Display_Array[0] = (d / 10);
+	Metering_Time_Display_Array[1] = (d % 10);
+	Metering_Time_Display_Array[2] = (h / 10);
+	Metering_Time_Display_Array[3] = (h % 10);
+	Metering_Time_Display_Array[4] = (m / 10);
+	Metering_Time_Display_Array[5] = (m % 10);
+	Metering_Time_Display_Array[6] = (s / 10);
+	Metering_Time_Display_Array[7] = (s % 10);
+}
+
+// ----------------------------------------
+// DisplayCost
+// 
+// Displays the cost in the desired format.
+// Input:
+//   none
+// Output:
+//   none
+// Conditions:
+//   none
+void DisplayCost(TUINT32 const price)
+{
+  Cost_Display_Array[0] = (price.s.Lo / 10);
+  Cost_Display_Array[1] = (price.s.Lo % 10);
+  Cost_Display_Array[2] = (price.s.Hi / 10);
+  Cost_Display_Array[3] = (price.s.Hi % 10);
+}
+
+// ----------------------------------------
 // CreateMenu
 // 
 // Creates the menu to display on the LCD
@@ -153,7 +193,7 @@ void CreateMenu(TLCDState menu)
     case DormantMenu:
       LCD_SetFunction(BacklightOFF, (UINT8)sLCDContrast);
       LCD_SetCursor(-1, -1);
-      /*LCD_SetLine(0);
+      LCD_SetLine(0);
       LCD_OutString("                ");
       LCD_SetLine(1);
       LCD_OutString("                ");
@@ -168,7 +208,7 @@ void CreateMenu(TLCDState menu)
       LCD_SetLine(6);
       LCD_OutString("                ");
       LCD_SetLine(7);
-      LCD_OutString("    DORMANT     ");*/
+      LCD_OutString("                ");
       LCDCurrentState = DormantMenu;
     break;
     
@@ -181,13 +221,19 @@ void CreateMenu(TLCDState menu)
         LCD_OutString("xx:xx:xx:xx");
       else
       {
-        LCD_OutInteger(System_Days.s.Lo);
+      	DisplayTime(System_Days.s.Lo, System_Hours.s.Lo, System_Minutes.s.Lo, System_Seconds.s.Lo);
+
+        LCD_OutInteger(Metering_Time_Display_Array[0]);
+        LCD_OutInteger(Metering_Time_Display_Array[1]);
         LCD_OutString(":");
-        LCD_OutInteger(System_Hours.s.Lo);
+        LCD_OutInteger(Metering_Time_Display_Array[2]);
+        LCD_OutInteger(Metering_Time_Display_Array[3]);
         LCD_OutString(":");
-        LCD_OutInteger(System_Minutes.s.Lo);
+        LCD_OutInteger(Metering_Time_Display_Array[4]);
+        LCD_OutInteger(Metering_Time_Display_Array[5]);
         LCD_OutString(":");
-        LCD_OutInteger(System_Seconds.s.Lo);
+        LCD_OutInteger(Metering_Time_Display_Array[6]);
+        LCD_OutInteger(Metering_Time_Display_Array[7]);
       }
       
       LCD_SetLine(2);
@@ -217,7 +263,6 @@ void CreateMenu(TLCDState menu)
       LCD_OutString("AVERAGE POWER   ");
       LCD_SetLine(1);
       //LCD_OutString("                ");
-      LCD_OutString("     ");
       LCD_QNotation(DEM_Average_Power.l, 1);
       LCD_OutString("W");
       LCD_SetLine(2);
@@ -285,10 +330,15 @@ void CreateMenu(TLCDState menu)
       	LCD_OutString("xxxx.xx");
       else
       {
+        DisplayCost(DEM_Total_Cost);
       	LCD_OutString("$");
-      	LCD_OutInteger(DEM_Total_Cost.s.Hi);
+      	LCD_OutInteger(Cost_Display_Array[0]);
+      	LCD_OutInteger(Cost_Display_Array[1]);
+      	//LCD_OutInteger(DEM_Total_Cost.s.Hi);
       	LCD_OutString(".");
-      	LCD_OutInteger(DEM_Total_Cost.s.Lo);
+      	//LCD_OutInteger(DEM_Total_Cost.s.Lo);
+      	LCD_OutInteger(Cost_Display_Array[2]);
+      	LCD_OutInteger(Cost_Display_Array[3]);
       }
       LCD_OutString("                ");
       LCD_SetLine(2);

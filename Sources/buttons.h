@@ -30,7 +30,7 @@ typedef enum
 // 
 // Gets the state of the pushbuttons
 // Input:
-//   
+//   dataPtr is a pointer to the button
 // Output:
 //   none
 // Conditions:

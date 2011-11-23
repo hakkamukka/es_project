@@ -22,13 +22,6 @@ extern TUINT16 System_Minutes;
 extern TUINT16 System_Hours;
 extern TUINT16 System_Days;
 
-/*
-extern TUINT16 System_ElapsedSeconds;
-extern TUINT16 System_ElapsedMinutes;
-extern TUINT16 System_ElapsedHours;
-extern TUINT16 System_ElapsedDays;
-*/
-
 // ----------------------------------------
 // Clock_Setup
 // 
@@ -56,10 +49,10 @@ void Clock_Setup(const UINT8 prescaleRate, const UINT8 modulusCount);
 //   TRUE if clock seconds have changed
 // Conditions:
 //   Assumes that the clock has been set up
-
 BOOL Clock_Update(void);
 
-UINT16 Clock_RunningTime(void);
+
+//UINT16 Clock_RunningTime(void);
 
 
 #endif

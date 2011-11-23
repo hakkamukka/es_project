@@ -38,12 +38,11 @@ extern TAnalogInput Analog_Input[NB_INPUT_CHANNELS];
 // 
 // Sets up the ADC and DAC
 // Input:
-//   none
+//   busClk to help do SPI_Setup
 // Output:
 //   none
 // Conditions:
 //   none
-
 void Analog_Setup(const UINT32 busClk);
 
 // ----------------------------------------
@@ -62,13 +61,15 @@ void Analog_Get(const TChannelNb channelNb);
 // ----------------------------------------
 //Analog_Put
 //Description
-//  
+//  Puts a digital representation of the analogue wave to the
+//	repsective channel
 //Input:
-//  
+//  channelNb is the channel to input data
+//	data to feed into the channel
 //Output:
-//  
+//  none
 //Conditions:
-//  
+//  Analog_Setup is called
 void Analog_Put(const TChannelNb channelNb, TUINT16 data);
 
 #endif

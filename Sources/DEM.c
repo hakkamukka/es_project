@@ -54,7 +54,7 @@ void DEM_AveragePower()
 {
 	INT8 i;
 
-	DEM_Power_Array[0] = Calculate_Power(voltage, current);
+	DEM_Power_Array[0] = Calculate_Power(DEM_Voltage_Array, DEM_Current_Array);
 	
 	for (i = 0; i < POWER_ARRAY_SIZE; i++)
 	{
@@ -64,10 +64,12 @@ void DEM_AveragePower()
 	DEM_Average_Power.l = totalPower.l / POWER_ARRAY_SIZE;
 }
 
+/*
 void DEM_TotalCost()
 {
 	//sCurrentTariffRate
 }
+*/
 
 // ----------------------------------------
 //DEM_CurrentTariff
